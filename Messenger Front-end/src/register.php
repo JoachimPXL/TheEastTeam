@@ -2,9 +2,10 @@
 /**
  * Created by PhpStorm.
  * User: Wiets
- * Date: 11/03/2017
- * Time: 10:14
+ * Date: 23/04/2017
+ * Time: 17:16
  */
+
 ?>
 
 <!DOCTYPE html>
@@ -19,15 +20,21 @@
     <div class="loginBar">
         <div class="content">
             <h1>Basic Security Messenger</h1>
-            <p>Meld u aan met uw gebruikersnaam en wachtwoord</p>
-            <form action="home.php" id="loginForm">
+            <p>Maak een nieuw account aan</p>
+            <form action="#" id="registerForm"> <!-- TODO Actiontag invullen naar nodige link-->
                 <div class="inputField">
                     <input type="text" placeholder="Gebruikersnaam">
                 </div>
                 <div class="inputField">
+                    <input type="email" placeholder="Email">
+                </div>
+                <div class="inputField">
                     <input type="password" placeholder="Wachtwoord">
                 </div>
-                <input type="submit" value="AANMELDEN" class="button">
+                <div class="inputField">
+                    <input type="password" placeholder="Wachtwoord bevestiging">
+                </div>
+                <input type="submit" value="REGISTREER" class="button">
             </form>
         </div>
 
@@ -35,3 +42,4 @@
 </div>
 </body>
 </html>
+
