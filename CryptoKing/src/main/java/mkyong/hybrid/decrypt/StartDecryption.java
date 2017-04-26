@@ -1,8 +1,8 @@
 package mkyong.hybrid.decrypt;
 
 import mkyong.hybrid.encrypt.Sign;
-import mkyong.writers.Hash;
-import mkyong.writers.InputOutputController;
+import mkyong.hybrid.writers.Hash;
+import mkyong.hybrid.writers.InputOutputController;
 
 import javax.crypto.spec.SecretKeySpec;
 import java.io.File;

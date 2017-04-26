@@ -20,21 +20,24 @@
         <div class="content">
             <h1>Basic Security Messenger</h1>
             <p>Maak een nieuw account aan</p>
-            <form action="#" id="registerForm"> <!-- TODO Actiontag invullen naar nodige link-->
+            <form method="post" id="registerForm"> <!-- TODO Actiontag invullen naar nodige link-->
                 <div class="inputField">
-                    <input type="text" placeholder="Gebruikersnaam">
+                    <input type="text" placeholder="Username" name="user">
                 </div>
                 <div class="inputField">
-                    <input type="email" placeholder="Email">
+                    <input type="email" placeholder="Email" name="email">
                 </div>
                 <div class="inputField">
-                    <input type="password" placeholder="Wachtwoord">
+                    <input type="password" placeholder="Password" name="pass">
                 </div>
                 <div class="inputField">
                     <input type="password" placeholder="Wachtwoord bevestiging">
                 </div>
-                <input type="submit" value="REGISTREER" class="button">
+                <input type="submit" value="Register" class="button">
             </form>
+            <c:if test="${not empty errorMessage}">
+                <c:out value="${errorMessage}"/>
+            </c:if>
         </div>
 
     </div>

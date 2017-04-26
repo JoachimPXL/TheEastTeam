@@ -1,7 +1,7 @@
 package mkyong.hybrid.encrypt;
 
-import mkyong.writers.Hash;
-import mkyong.writers.InputOutputController;
+import mkyong.hybrid.writers.Hash;
+import mkyong.hybrid.writers.InputOutputController;
 import javax.crypto.spec.SecretKeySpec;
 import java.io.File;
 import java.io.IOException;

@@ -1,6 +1,6 @@
 package mkyong.hybrid.encrypt;
 
-import mkyong.writers.InputOutputController;
+import mkyong.hybrid.writers.InputOutputController;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;

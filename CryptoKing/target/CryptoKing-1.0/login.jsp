@@ -17,16 +17,19 @@
     <div class="loginBar">
         <div class="content">
             <h1>Basic Security Messenger</h1>
-            <p>Meld u aan met uw gebruikersnaam en wachtwoord</p>
-            <form action="home.php" id="loginForm">
+            <p>Choose nickname</p>
+            <form method="post">
                 <div class="inputField">
-                    <input type="text" placeholder="Gebruikersnaam">
+                    <input type="text" placeholder="Nickname" required="true" maxlength="15" minlength="2"  name="user" itemscope="session">
                 </div>
                 <div class="inputField">
-                    <input type="password" placeholder="Wachtwoord">
+                    <input type="password" placeholder="Wachtwoord" name="pass">
                 </div>
-                <input type="submit" value="AANMELDEN" class="button">
+                <input type="submit" value="Login" class="button">
             </form>
+            <c:if test="${not empty errorMessage}">
+                <c:out value="${errorMessage}"/>
+            </c:if>
         </div>
 
     </div>

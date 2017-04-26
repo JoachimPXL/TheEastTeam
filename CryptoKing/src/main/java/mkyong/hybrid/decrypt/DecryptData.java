@@ -1,6 +1,6 @@
 package mkyong.hybrid.decrypt;
 
-import mkyong.writers.InputOutputController;
+import mkyong.hybrid.writers.InputOutputController;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
