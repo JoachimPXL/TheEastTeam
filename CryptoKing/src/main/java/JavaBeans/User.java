@@ -12,13 +12,13 @@ public class User implements Serializable{
     private String username;
     private String password;
     private String email;
-    private PublicKey publicKey;
-    private PrivateKey privateKey;
+    private byte[] publicKey;
+    private byte[] privateKey;
 
     public User() {
     }
 
-    public User(String username, String password, String email, PublicKey publicKey, PrivateKey privateKey) {
+    public User(String username, String password, String email, byte[] publicKey, byte[] privateKey) {
         this.username = username;
         this.password = password;
         this.email = email;
@@ -26,19 +26,19 @@ public class User implements Serializable{
         this.privateKey = privateKey;
     }
 
-    public PublicKey getPublicKey() {
+    public byte[] getPublicKey() {
         return publicKey;
     }
 
-    public void setPublicKey(PublicKey publicKey) {
+    public void setPublicKey(byte[] publicKey) {
         this.publicKey = publicKey;
     }
 
-    public PrivateKey getPrivateKey() {
+    public byte[] getPrivateKey() {
         return privateKey;
     }
 
-    public void setPrivateKey(PrivateKey privateKey) {
+    public void setPrivateKey(byte[] privateKey) {
         this.privateKey = privateKey;
     }
 

@@ -1,23 +1,23 @@
 package Servlets;
 
 import JavaBeans.User;
+import sun.misc.IOUtils;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.PrintWriter;
+import java.io.*;
 import java.sql.*;
 
 /**
  * Created by 11500555 on 26/04/2017.
  */
 @WebServlet("/Register")
+@MultipartConfig(maxFileSize = 16177215)
 public class RegisterServlet extends HttpServlet {
 
     private String dbURL = "jdbc:mysql://213.136.26.180/u5162p3748_joa?useLegacyDatetimeCode=false&serverTimezone=UTC";
@@ -41,42 +41,21 @@ public class RegisterServlet extends HttpServlet {
 
         // obtains the upload file part in this multipart request
         Part filePartPublic = request.getPart("public");
-        //Part filePartPrivate = request.getPart("private");
+        Part filePartPrivate = request.getPart("private");
 
-        if (filePartPublic != null ) { //&& filePartPrivate != null
+        if (filePartPublic != null && filePartPrivate != null) {
             // obtains input stream of the upload file
             inputStreamPublic = filePartPublic.getInputStream();
-            //inputStreamPrivate = filePartPrivate.getInputStream();
-        }
-
-        try {
-            // connects to the database
-            DriverManager.registerDriver(new com.mysql.jdbc.Driver());
-            Connection conn = DriverManager.getConnection(dbURL, dbUser, dbPass);
-
-            // constructs SQL statement
-            String sql = "INSERT INTO contacts (first_name, publick) values (?, ?)";
-            PreparedStatement statement = conn.prepareStatement(sql);
-            statement.setString(1, user);
-
-            if (inputStreamPublic != null ) { //&& inputStreamPrivate != null
-                // fetches input stream of the upload file for the blob column
-                statement.setBlob(2, inputStreamPublic);
-                //statement.setBlob(3, inputStreamPrivate);
-            }
-
-            // sends the statement to the database server
-            int row = statement.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
+            inputStreamPrivate = filePartPrivate.getInputStream();
         }
 
         User gebruiker = new User();
         try {
-            //gebruiker = new User(user,pass,email, StartEncryption.getPublicKey(fileNamePublic,"RSA"),StartEncryption.getPrivateKey(fileNamePrivate,"RSA"));
+            gebruiker = new User(user, pass, email, getBytesFromInputstream(inputStreamPublic), getBytesFromInputstream(inputStreamPrivate));
         } catch (Exception e) {
             e.printStackTrace();
-            out.print("ERROR bij aanmaken gebruiker. ER GING IETS MIS BIJ HET PARSEN VAN DE FILE");
+            request.setAttribute("error", "The selected keys were not added properly, please try again.");
+            request.getRequestDispatcher("/register.jsp").forward(request, response);
         }
 
         try {
@@ -86,20 +65,19 @@ public class RegisterServlet extends HttpServlet {
             ResultSet rs = pst.executeQuery();
             if (rs.next()) {
                 request.setAttribute("error", "Username already in use, please choose a different username.");
-                //request.getRequestDispatcher("/register.jsp").forward(request, response);
+                request.getRequestDispatcher("/register.jsp").forward(request, response);
             } else {
-                String sql = "INSERT INTO users (username, email, password, publicKey) VALUES (?,?,?,?)";
+                String sql = "INSERT INTO users (username, email, password, publicKey, privateKey) VALUES (?,?,?,?,?)";
                 try (Connection con = getConnection();
                      PreparedStatement stmt = con.prepareStatement(sql)) {
                     stmt.setString(1, gebruiker.getUsername());
                     stmt.setString(2, gebruiker.getEmail());
                     stmt.setString(3, gebruiker.getPassword());
-                    stmt.setBytes(4, gebruiker.getPublicKey().getEncoded());
-                    //stmt.setBytes(5, gebruiker.getPrivateKey().getEncoded());
+                    stmt.setBytes(4, gebruiker.getPublicKey());
+                    stmt.setBytes(5, gebruiker.getPrivateKey());
                     stmt.executeUpdate();
-                    out.print("Account has been created");
                     request.setAttribute("error", "Account has been created!");
-                    //request.getRequestDispatcher("/register.jsp").forward(request, response);
+                    request.getRequestDispatcher("/register.jsp").forward(request, response);
                 } catch (Exception ex) {
                     System.out.println(ex.getMessage());
                     ex.printStackTrace(System.err);
@@ -113,9 +91,23 @@ public class RegisterServlet extends HttpServlet {
         }
     }
 
+    private byte[] getBytesFromInputstream(InputStream inputStreamPublic) throws IOException {
+        ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+
+        int nRead;
+        byte[] data = new byte[16384];
+
+        while ((nRead = inputStreamPublic.read(data, 0, data.length)) != -1) {
+            buffer.write(data, 0, nRead);
+        }
+
+        buffer.flush();
+
+        return buffer.toByteArray();
+    }
 
     private Connection getConnection() throws ClassNotFoundException, SQLException {
         Class.forName("com.mysql.jdbc.Driver");
-        return DriverManager.getConnection("jdbc:mysql://213.136.26.180/u5162p3748_joa?useLegacyDatetimeCode=false&serverTimezone=UTC", "u5162p3748_jojo", "test123");
+        return DriverManager.getConnection(dbURL, dbUser, dbPass);
     }
 }

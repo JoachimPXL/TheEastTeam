@@ -28,7 +28,9 @@
                 <input type="submit" value="Login" class="button">
             </form>
         </div>
-        <h3><%=request.getAttribute("error")%></h3>
+        <% if (request.getAttribute("error") != null) {%>
+        <h2><%=request.getAttribute("error")%></h2>
+        <% }%>
 
     </div>
 </div>
