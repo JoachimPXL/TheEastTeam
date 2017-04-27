@@ -11,6 +11,7 @@ mkyong\hybrid\writers\Hash.class
 mkyong\hybrid\decrypt\StartDecryption.class
 mkyong\hybrid\encrypt\EncryptKey.class
 mkyong\hybrid\steganografie\Steganography_View$Text_Panel.class
+Servlets\LogoutServlet.class
 mkyong\hybrid\steganografie\Steganography_View.class
 Servlets\RegisterServlet.class
 mkyong\hybrid\steganografie\Steganography_View$Image_Panel.class

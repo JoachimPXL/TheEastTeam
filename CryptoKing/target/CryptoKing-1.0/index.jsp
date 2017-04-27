@@ -14,10 +14,26 @@
 </head>
 <body>
 <div class="people">
+
+    <%
+        String userName = null;
+        Cookie[] cookies = request.getCookies();
+        if(cookies !=null){
+            for(Cookie cookie : cookies){
+                if(cookie.getName().equals("user")) userName = cookie.getValue();
+            }
+        }
+        if(userName == null) response.sendRedirect("login.jsp");
+    %>
+
+    <h1>Logged in as: <%=userName %> </h1>
+    <form action="LogoutServlet" method="post">
+        <input type="submit" value="Logout" >
+    </form>
+
     <h1>Contacten</h1>
     <div class="contact">
         <div class="contactImage">
-
         </div>
         <div class="contactInfo">
             <h4>Wietse Collaer</h4>
@@ -42,10 +58,12 @@
             <p>Alles goed?</p>
         </div>
     </div>
+
 </div>
 <div class="messages" id="messages">
     <div class="headerTitle">
         <h1 class="black">Berichten</h1>
+
     </div>
     <div class="messageContent">
         <div class="message">

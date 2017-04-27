@@ -3,6 +3,7 @@ package Servlets;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -36,9 +37,11 @@ public class MySqlConnect extends HttpServlet {
             if(rs.next()) {
                 if (rs.getString("username").equals(user) && rs.getString("password").equals(pass)) {
                     out.println(rs.getString("username") + rs.getString("password"));
-                    request.setAttribute(user, user);
-                    request.getRequestDispatcher("/index.jsp")
-                            .forward(request, response);
+                    //aanmaken cookie
+                    Cookie loginCookie = new Cookie("user",user);
+                    loginCookie.setMaxAge(30*60);
+                    response.addCookie(loginCookie);
+                    response.sendRedirect("index.jsp");
                 } else {
                     request.setAttribute("error", "Wrong login credentials.");
                     request.getRequestDispatcher("/login.jsp")
