@@ -18,14 +18,14 @@ import java.security.spec.X509EncodedKeySpec;
  */
 public class StartEncryption {
 
-	public PrivateKey getPrivateKey(String filename, String algorithm) throws Exception {
+	public static PrivateKey getPrivateKey(String filename, String algorithm) throws Exception {
 		byte[] keyBytes = Files.readAllBytes(new File(filename).toPath());
 		PKCS8EncodedKeySpec spec = new PKCS8EncodedKeySpec(keyBytes);
 		KeyFactory kf = KeyFactory.getInstance(algorithm);
 		return kf.generatePrivate(spec);
 	}
 
-	public PublicKey getPublicKey(String filename, String algorithm) throws Exception {
+	public static PublicKey getPublicKey(String filename, String algorithm) throws Exception {
 		byte[] keyBytes = Files.readAllBytes(new File(filename).toPath());
 		X509EncodedKeySpec spec = new X509EncodedKeySpec(keyBytes);
 		KeyFactory kf = KeyFactory.getInstance(algorithm);

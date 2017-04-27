@@ -362,6 +362,10 @@
       <workItem from="1492717041623" duration="53000" />
       <workItem from="1493131088439" duration="10000" />
       <workItem from="1493155017883" duration="20000" />
+      <workItem from="1493223682649" duration="4000" />
+      <workItem from="1493234896785" duration="42000" />
+      <workItem from="1493240257549" duration="14000" />
+      <workItem from="1493243338407" duration="5000" />
     </task>
     <task id="LOCAL-00001" summary="Messenger front-end first commit">
       <created>1489236422856</created>
@@ -381,7 +385,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="26283000" />
+    <option name="totallyTimeSpent" value="26348000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -396,7 +400,7 @@
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="false" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1748401" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18123667" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32936078" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32936078" sideWeight="0.5021322" order="10" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />

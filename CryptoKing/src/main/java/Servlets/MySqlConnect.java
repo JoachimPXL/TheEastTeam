@@ -34,19 +34,20 @@ public class MySqlConnect extends HttpServlet {
             pst.setString(1, user);
             ResultSet rs = pst.executeQuery();
             if(rs.next()) {
-                if (rs.getString("username").equals(user) && rs.getString("password").equals(pass)) { //
-                    out.println("Correct login credentials");
+                if (rs.getString("username").equals(user) && rs.getString("password").equals(pass)) {
                     out.println(rs.getString("username") + rs.getString("password"));
-                    request.setAttribute(user, user); //rs.getString(1) --> eerste user
+                    request.setAttribute(user, user);
                     request.getRequestDispatcher("/index.jsp")
                             .forward(request, response);
                 } else {
-                    //request.getRequestDispatcher("/login.jsp")
-                    //.forward(request, response);
-                    request.setAttribute("errorMessage", "Wrong login credentials.");
+                    request.setAttribute("error", "Wrong login credentials.");
+                    request.getRequestDispatcher("/login.jsp")
+                    .forward(request, response);
                 }
             } else {
-                out.println("Geen record.");
+                request.setAttribute("error", "Wrong login credentials.");
+                request.getRequestDispatcher("/login.jsp")
+                        .forward(request, response);
             }
         } catch (SQLException e) {
             e.printStackTrace();
