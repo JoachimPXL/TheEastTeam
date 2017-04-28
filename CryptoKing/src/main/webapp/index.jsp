@@ -11,6 +11,7 @@
     <title>Index</title>
     <link rel="stylesheet" href="assets/style/layout.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://use.fontawesome.com/362994279d.js"></script>
 </head>
 <body>
 <div class="people">
@@ -77,6 +78,21 @@
             </div>
         </div>
     </div>
+
+
+    <div class="sendBar">
+        <form action="http://vjho.be" class="sendForm">
+            <input type="file" id="selectedFile" style="display: none">
+            <input type="button" value="FOTO" class="button" onclick="document.getElementById('selectedFile').click();">
+            <input type="text" placeholder="Typ hier uw bericht">
+            <input type="submit" id="submitButton" style="display: none">
+            <i class="fa fa-paper-plane fa-3x" onclick="document.getElementById('submitButton').click();"></i>
+        </form>
+    </div>
 </div>
+
+<script>
+    $('#messages').scrollTop(150);
+</script>
 </body>
 </html>
