@@ -30,8 +30,6 @@ public class FileUploadDBServlet extends HttpServlet {
                           HttpServletResponse response) throws ServletException, IOException {
         // gets values of text fields
         String firstName = request.getParameter("firstName");
-        String lastName = request.getParameter("lastName");
-
         InputStream inputStream = null;	// input stream of the upload file
 
         // obtains the upload file part in this multipart request
