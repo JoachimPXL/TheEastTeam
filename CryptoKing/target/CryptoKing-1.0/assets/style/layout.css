@@ -173,7 +173,7 @@ h4 {
 
 .messageContent {
   padding-top: 90px;
-  padding-bottom: 40px;
+  padding-bottom: 60px;
   overflow: auto; }
 
 * {
@@ -193,5 +193,48 @@ html, body {
   padding: 0;
   border: 0;
   overflow: hidden; }
+
+.sendBar{
+  bottom:0;
+  position: fixed;
+  width: 70%;
+  border-top-color: #f50057;
+  border-top-width: 1px;
+  border-top-style:solid;
+  padding: 15px;
+  background-color: white;
+}
+
+.sendForm{
+  width: 100%;
+}
+
+.sendForm input{
+  margin-right: 5px;
+}
+
+.sendForm input[type='text']{
+  border:none;
+  border-bottom-width: 1px;
+  border-bottom-color: #f50057;
+  border-bottom-style: solid;
+  width: 90%;
+  height: 100%;
+}
+
+.sendForm input[type='text']:focus{
+  outline: none;
+}
+
+.sendForm input[type='button']{
+  background-color: #f50057;
+  cursor: pointer;
+}
+
+i{
+  color: #f50057;
+  cursor: pointer;
+  right: 0;
+}
 
 /*# sourceMappingURL=layout.css.map */

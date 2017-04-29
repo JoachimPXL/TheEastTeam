@@ -26,9 +26,6 @@
                     <input type="password" placeholder="Wachtwoord" name="pass">
                 </div>
                 <input type="submit" value="Login" class="button">
-                <button class="button" formaction="http://www.google.be">
-                    REGISTREREN
-                </button>
             </form>
         </div>
         <% if (request.getAttribute("error") != null) {%>
