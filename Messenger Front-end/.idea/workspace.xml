@@ -2,6 +2,31 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ee99fb92-1b3f-4433-b8be-e4212d207168" name="Default" comment="">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../CryptoKing/target/classes/JavaBeans/Message.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../CryptoKing/target/classes/Servlets/FileUploadDBServlet.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../CryptoKing/target/classes/Servlets/GetMessagesServlet.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../CryptoKing/target/classes/Servlets/LogoutServlet.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../CryptoKing/target/classes/Servlets/MySqlConnect.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../CryptoKing/target/classes/Servlets/RegisterServlet.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../CryptoKing/target/classes/mkyong/hybrid/decrypt/DecryptData.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../CryptoKing/target/classes/mkyong/hybrid/decrypt/DecryptKey.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../CryptoKing/target/classes/mkyong/hybrid/decrypt/StartDecryption.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../CryptoKing/target/classes/mkyong/hybrid/encrypt/EncryptData.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../CryptoKing/target/classes/mkyong/hybrid/encrypt/EncryptKey.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../CryptoKing/target/classes/mkyong/hybrid/encrypt/Sign.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../CryptoKing/target/classes/mkyong/hybrid/writers/InputOutputController.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/../CryptoKing/target/classes/mkyong/onekey/GenerateSymmetricKey.class" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../CryptoKing/target/CryptoKing-1.0.war" afterPath="$PROJECT_DIR$/../CryptoKing/target/CryptoKing-1.0.war" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../CryptoKing/target/CryptoKing-1.0/WEB-INF/classes/Servlets/GetMessagesServlet.class" afterPath="$PROJECT_DIR$/../CryptoKing/target/CryptoKing-1.0/WEB-INF/classes/Servlets/GetMessagesServlet.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../CryptoKing/target/CryptoKing-1.0/WEB-INF/classes/Servlets/MySqlConnect.class" afterPath="$PROJECT_DIR$/../CryptoKing/target/CryptoKing-1.0/WEB-INF/classes/Servlets/MySqlConnect.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../CryptoKing/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../CryptoKing/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../CryptoKing/src/main/java/Servlets/GetMessagesServlet.java" afterPath="$PROJECT_DIR$/../CryptoKing/src/main/java/Servlets/GetMessagesServlet.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../CryptoKing/src/main/java/Servlets/MySqlConnect.java" afterPath="$PROJECT_DIR$/../CryptoKing/src/main/java/Servlets/MySqlConnect.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../CryptoKing/src/main/webapp/index.jsp" afterPath="$PROJECT_DIR$/../CryptoKing/src/main/webapp/index.jsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../CryptoKing/target/CryptoKing-1.0/index.jsp" afterPath="$PROJECT_DIR$/../CryptoKing/target/CryptoKing-1.0/index.jsp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../CryptoKing/target/maven-archiver/pom.properties" afterPath="$PROJECT_DIR$/../CryptoKing/target/maven-archiver/pom.properties" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../CryptoKing/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterPath="$PROJECT_DIR$/../CryptoKing/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../CryptoKing/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterPath="$PROJECT_DIR$/../CryptoKing/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -171,6 +196,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -247,8 +274,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scratches" />
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -366,6 +391,9 @@
       <workItem from="1493234896785" duration="42000" />
       <workItem from="1493240257549" duration="14000" />
       <workItem from="1493243338407" duration="5000" />
+      <workItem from="1493466020459" duration="4000" />
+      <workItem from="1493468236704" duration="63000" />
+      <workItem from="1493479168080" duration="592000" />
     </task>
     <task id="LOCAL-00001" summary="Messenger front-end first commit">
       <created>1489236422856</created>
@@ -385,7 +413,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="26348000" />
+    <option name="totallyTimeSpent" value="27007000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -400,7 +428,7 @@
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="false" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18123667" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18710022" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32936078" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32936078" sideWeight="0.5021322" order="10" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -770,13 +798,13 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/assets/style/_hTags.css" />
     <entry file="file://$PROJECT_DIR$/assets/style/layout.css.map">
-      <provider editor-type-id="sourcemapFileViewerProvider">
-        <state />
-      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
         </state>
+      </provider>
+      <provider editor-type-id="sourcemapFileViewerProvider">
+        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/assets/style/_login.sass">

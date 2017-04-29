@@ -1,4 +1,9 @@
-<%--
+<%@ page import="JavaBeans.Message" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="java.sql.Connection" %>
+<%@ page import="java.sql.DriverManager" %>
+<%@ page import="java.sql.PreparedStatement" %>
+<%@ page import="java.sql.ResultSet" %><%--
   Created by IntelliJ IDEA.
   User: 11500555
   Date: 23/04/2017
@@ -19,17 +24,18 @@
     <%
         String userName = null;
         Cookie[] cookies = request.getCookies();
-        if(cookies !=null){
-            for(Cookie cookie : cookies){
-                if(cookie.getName().equals("user")) userName = cookie.getValue();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("user")) userName = cookie.getValue();
             }
         }
-        if(userName == null) response.sendRedirect("login.jsp");
+        if (userName == null) response.sendRedirect("login.jsp");
     %>
 
-    <h1>Logged in as: <%=userName %> </h1>
+    <h1>Logged in as: <%=userName %>
+    </h1>
     <form action="LogoutServlet" method="post">
-        <input type="submit" value="Logout" >
+        <input type="submit" value="Logout">
     </form>
 
     <h1>Contacten</h1>
@@ -38,9 +44,19 @@
         </div>
         <div class="contactInfo" id="contact1">
             <h4>
-                <% if(application.getAttribute("user")!=null){%>
-                <%=application.getAttribute("user")%>
-                <%}%>
+
+                <%
+                    ArrayList<Message> list = (ArrayList<Message>) request.getAttribute("list");
+                    try {
+                        Message e = list.get(list.size() - 1);
+                        out.print(e.getSenderName());
+
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
+
+                %>
+
             </h4>
         </div>
     </div>
@@ -50,9 +66,10 @@
         </div>
         <div class="contactInfo" id="contact2">
 
-                <% if(request.getAttribute("user")!=null){%>
-                <h4><%=request.getAttribute("user")%></h4>
-                <%}%>
+            <% if (request.getAttribute("user") != null) {%>
+            <h4><%=request.getAttribute("user")%>
+            </h4>
+            <%}%>
 
         </div>
     </div>
@@ -62,9 +79,9 @@
         </div>
         <div class="contactInfo" id="contact3">
             <h4>
-                <% if(request.getAttribute("user")!=null){%>
-            <%=request.getAttribute("user")%>
-            <%}%>
+                <% if (request.getAttribute("user") != null) {%>
+                <%=request.getAttribute("user")%>
+                <%}%>
             </h4>
         </div>
     </div>
@@ -77,31 +94,31 @@
     <div class="messageContent">
         <div class="message">
             <div class="own" id="receivedMessage">
-                    <% if(application.getAttribute("message")!=null){%>
-                    <%=application.getAttribute("message")%>
-                    <%}%>
-                </div>
-            </div>
-        </div>
-        <div class="message">
-            <div class="send" id="sendMessage">
-                    <% if(application.getAttribute("message")!=null){%>
-                    <%=application.getAttribute("message")%>
-                    <%}%>
+                <% if (application.getAttribute("message") != null) {%>
+                <%=application.getAttribute("message")%>
+                <%}%>
             </div>
         </div>
     </div>
-
-
-    <div class="sendBar">
-        <form action="/SendMessage" class="sendForm">
-            <input type="file" id="selectedFile" style="display: none">
-            <input type="button" value="FOTO" class="button" onclick="document.getElementById('selectedFile').click();">
-            <input type="text" placeholder="Typ hier uw bericht">
-            <input type="submit" id="submitButton" style="display: none">
-            <i class="fa fa-paper-plane fa-3x" onclick="document.getElementById('submitButton').click();"></i>
-        </form>
+    <div class="message">
+        <div class="send" id="sendMessage">
+            <% if (application.getAttribute("message") != null) {%>
+            <%=application.getAttribute("message")%>
+            <%}%>
+        </div>
     </div>
+</div>
+
+
+<div class="sendBar">
+    <form action="/SendMessage" class="sendForm">
+        <input type="file" id="selectedFile" style="display: none">
+        <input type="button" value="FOTO" class="button" onclick="document.getElementById('selectedFile').click();">
+        <input type="text" placeholder="Typ hier uw bericht">
+        <input type="submit" id="submitButton" style="display: none">
+        <i class="fa fa-paper-plane fa-3x" onclick="document.getElementById('submitButton').click();"></i>
+    </form>
+</div>
 </div>
 
 <script>

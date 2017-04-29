@@ -11,17 +11,36 @@ public class Message implements Serializable {
     private String message;
     private int senderId;
     private int receiverId;
+    private String senderName;
 
 
-    public Message(byte[] fileInBytes, String message, int senderId, int receiver) {
+    public Message(byte[] fileInBytes, String message, int senderId, int receiver, String senderName) {
         this.fileInBytes = fileInBytes;
         this.message = message;
         this.senderId = senderId;
         this.receiverId = receiver;
+        this.senderName = senderName;
+    }
+
+    public int getReceiverId() {
+        return receiverId;
+    }
+
+    public void setReceiverId(int receiverId) {
+        this.receiverId = receiverId;
+    }
+
+    public String getSenderName() {
+        return senderName;
+    }
+
+    public void setSenderName(String senderName) {
+        this.senderName = senderName;
     }
 
     public byte[] getFileInBytes() {
         return fileInBytes;
+
     }
 
     public void setFileInBytes(byte[] fileInBytes) {
