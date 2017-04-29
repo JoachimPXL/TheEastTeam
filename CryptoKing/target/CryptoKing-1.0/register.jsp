@@ -40,6 +40,11 @@
                 </div>
                 <input type="submit" value="Register" class="button">
             </form>
+            <form method="post" action="login.jsp">
+                <button class="button">
+                    Inloggen
+                </button>
+            </form>
         </div>
         <div class="content">
             <% if (request.getAttribute("error") != null) {%>

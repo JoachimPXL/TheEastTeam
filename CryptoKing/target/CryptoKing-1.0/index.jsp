@@ -38,15 +38,17 @@
         <input type="submit" value="Logout">
     </form>
 
-    <h1>Contacten</h1>
+    <h1>Recente contacten.</h1>
+    <%
+        ArrayList<Message> list = (ArrayList<Message>) request.getAttribute("list");
+        if (list.size() > 0) {
+    %>
     <div class="contact">
         <div class="contactImage">
         </div>
         <div class="contactInfo" id="contact1">
             <h4>
-
                 <%
-                    ArrayList<Message> list = (ArrayList<Message>) request.getAttribute("list");
                     try {
                         Message e = list.get(list.size() - 1);
                         out.print(e.getSenderName());
@@ -54,38 +56,148 @@
                     } catch (Exception ex) {
                         ex.printStackTrace();
                     }
-
                 %>
-
             </h4>
         </div>
     </div>
+    <% } %>
+    <%
+        if (list.size() > 1) {
+    %>
     <div class="contact">
         <div class="contactImage">
-
         </div>
         <div class="contactInfo" id="contact2">
+        <h4>
+            <%
+                try {
+                    Message e = list.get(list.size() - 2);
+                    out.print(e.getSenderName());
 
-            <% if (request.getAttribute("user") != null) {%>
-            <h4><%=request.getAttribute("user")%>
-            </h4>
-            <%}%>
+                } catch (Exception ex) {
+                    out.print("...");
+                }
 
+            %>
+        </h4>
         </div>
     </div>
+    <%}%>
+    <%
+        if (list.size() > 2) {
+    %>
     <div class="contact">
         <div class="contactImage">
-
         </div>
         <div class="contactInfo" id="contact3">
             <h4>
-                <% if (request.getAttribute("user") != null) {%>
-                <%=request.getAttribute("user")%>
-                <%}%>
+                <%
+                    try {
+                        Message e = list.get(list.size() - 3);
+                        out.print(e.getSenderName());
+
+                    } catch (Exception ex) {
+                        out.print("...");
+                    }
+
+                %>
             </h4>
         </div>
     </div>
+    <%}%>
 
+    <%
+        if (list.size() > 3) {
+    %>
+    <div class="contact">
+        <div class="contactImage">
+
+        </div>
+        <div class="contactInfo" id="contact5">
+            <h4>
+                <%
+                    try {
+                        Message e = list.get(list.size() - 4);
+                        out.print(e.getSenderName());
+
+                    } catch (Exception ex) {
+                        out.print("...");
+                    }
+
+                %>
+            </h4>
+        </div>
+    </div>
+    <%}%>
+    <%
+        if (list.size() > 4) {
+    %>
+    <div class="contact">
+        <div class="contactImage">
+
+        </div>
+        <div class="contactInfo" id="contact6">
+            <h4>
+                <%
+                    try {
+                        Message e = list.get(list.size() - 5);
+                        out.print(e.getSenderName());
+
+                    } catch (Exception ex) {
+                        out.print("...");
+                    }
+
+                %>
+            </h4>
+        </div>
+    </div>
+    <%}%>
+    <%
+        if (list.size() > 5) {
+    %>
+    <div class="contact">
+        <div class="contactImage">
+
+        </div>
+        <div class="contactInfo" id="contact7">
+            <h4>
+                <%
+                    try {
+                        Message e = list.get(list.size() - 6);
+                        out.print(e.getSenderName());
+
+                    } catch (Exception ex) {
+                        out.print("...");
+                    }
+
+                %>
+            </h4>
+        </div>
+    </div>
+    <%}%>
+    <%
+        if (list.size() > 6) {
+    %>
+    <div class="contact">
+        <div class="contactImage">
+
+        </div>
+        <div class="contactInfo" id="contact8">
+            <h4>
+                <%
+                    try {
+                        Message e = list.get(list.size() - 7);
+                        out.print(e.getSenderName());
+
+                    } catch (Exception ex) {
+                        out.print("...");
+                    }
+
+                %>
+            </h4>
+        </div>
+    </div>
+    <%}%>
 </div>
 <div class="messages" id="messages">
     <div class="headerTitle">

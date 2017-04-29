@@ -20,12 +20,18 @@
             <p>Choose nickname</p>
             <form method="post" action="Login">
                 <div class="inputField">
-                    <input type="text" placeholder="Nickname" required="true" maxlength="15" minlength="2"  name="user" itemscope="session">
+                    <input type="text" placeholder="Gebruikersnaam" required="true" maxlength="15" minlength="2"  name="user" itemscope="session">
                 </div>
                 <div class="inputField">
                     <input type="password" placeholder="Wachtwoord" name="pass">
                 </div>
                 <input type="submit" value="Login" class="button">
+
+            </form>
+            <form method="post" action="register.jsp">
+            <button class="button">
+                Registreren
+            </button>
             </form>
         </div>
         <% if (request.getAttribute("error") != null) {%>
