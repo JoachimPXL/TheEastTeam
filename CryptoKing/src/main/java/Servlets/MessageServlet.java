@@ -1,5 +1,6 @@
 package Servlets;
 
+import JavaBeans.Chat;
 import JavaBeans.Message;
 
 import javax.servlet.RequestDispatcher;
@@ -23,7 +24,10 @@ public class MessageServlet extends HttpServlet {
     private String dbPass = "test123";
     private int receiverId;
     private String userName;
-    private ArrayList<Message> list = new ArrayList<Message>();
+
+    private ArrayList<Message> listReceived = new ArrayList<Message>();
+    private ArrayList<Message> listSent = new ArrayList<Message>();
+    private ArrayList<Chat> chats = new ArrayList<Chat>();
 
     public void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -45,7 +49,7 @@ public class MessageServlet extends HttpServlet {
             e.printStackTrace();
         }
         Connection conn = null;
-        //Get received messages;
+        //Get received messages and contacts;
         try {
             conn = DriverManager.getConnection(dbURL, dbUser, dbPass);
             PreparedStatement pst = conn.prepareStatement("select * from messages where receiverId=?");
@@ -54,22 +58,62 @@ public class MessageServlet extends HttpServlet {
 
             while (rs.next()) {
 
-                Message message = new Message(rs.getBytes(5), rs.getString(4), rs.getInt(2), rs.getInt(3), getSenderName(rs.getInt(2)));
+                Message message = new Message(rs.getBytes(5), rs.getString(4), rs.getInt(2), rs.getInt(3), getSenderName(rs.getInt(2)), userName);
                 //out.print(message);
-                list.add(message);
+                listReceived.add(message);
             }
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
          // however you get the data
         // set the attribute in the request to access it on the JSP
-        request.setAttribute("list", list);
+        request.setAttribute("list", listReceived);
+        //get sent messages by logged-in user
+        try {
+            conn = DriverManager.getConnection(dbURL, dbUser, dbPass);
+            PreparedStatement pst = conn.prepareStatement("select * from messages where senderId=?");
+            pst.setInt(1, receiverId );
+            ResultSet rs = pst.executeQuery();
+            while (rs.next()) {
+                Message message = new Message(rs.getBytes(5), rs.getString(4), rs.getInt(2), rs.getInt(3), userName, getSenderName(rs.getInt(3)));
+                //out.print(message);
+                listSent.add(message);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        request.setAttribute("listSent", listSent);
+
+        if(listSent.size() > 0 && listReceived.size() > 0) {
+            chats.add(new Chat(userName, listReceived.get(0).getSenderName()));
+            for (Message message: listReceived) {
+                if(message.getSenderName().equals(chats.get(0).getSender()) && message.getReceiverName().equals(chats.get(0).getReceiver()) ) {
+                    chats.get(0).addReceivedMessage(message);
+                }
+            }
+            for (Message message: listSent) {
+                if(message.getSenderName().equals(chats.get(0).getReceiver()) && message.getReceiverName().equals(chats.get(0).getSender()) ) {
+                    chats.get(0).addSendMessage(message);
+                }
+            }
+        } else {
+
+        }
+
+        request.setAttribute("chats", chats);
+
+        chats = new ArrayList<Chat>();
+        listReceived = new ArrayList<Message>();
+        listSent = new ArrayList<Message>();
 
         RequestDispatcher rd = getServletContext()
                 .getRequestDispatcher("/index.jsp");
         rd.forward(request, response);
     }
+
 
     private String getSenderName(int senderId) {
         Connection conn;
@@ -80,7 +124,7 @@ public class MessageServlet extends HttpServlet {
         }
         try {
             conn = DriverManager.getConnection(dbURL, dbUser, dbPass);
-            PreparedStatement pst = conn.prepareStatement("select username from users where Id=?");
+            PreparedStatement pst = conn.prepareStatement("select username from users where id=?");
             pst.setInt(1, senderId);
             ResultSet rs = pst.executeQuery();
             if (rs.next()) {

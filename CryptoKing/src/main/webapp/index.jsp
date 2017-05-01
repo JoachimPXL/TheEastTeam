@@ -3,7 +3,8 @@
 <%@ page import="java.sql.Connection" %>
 <%@ page import="java.sql.DriverManager" %>
 <%@ page import="java.sql.PreparedStatement" %>
-<%@ page import="java.sql.ResultSet" %><%--
+<%@ page import="java.sql.ResultSet" %>
+<%@ page import="JavaBeans.Chat" %><%--
   Created by IntelliJ IDEA.
   User: 11500555
   Date: 23/04/2017
@@ -18,6 +19,12 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://use.fontawesome.com/362994279d.js"></script>
 </head>
+<script>
+    function formSubmit() {
+        this.submit(window.location.href = 'LogoutServlet');
+
+    }
+</script>
 <body>
 <div class="people">
 
@@ -32,16 +39,21 @@
         if (userName == null) response.sendRedirect("login.jsp");
     %>
 
-    <h1>Logged in as: <%=userName %>
+    <h1>Aangemeld als: <%=userName %>
     </h1>
     <form action="LogoutServlet" method="post">
-        <input type="submit" value="Logout">
+        <button type="submit" class="button">
+            Afmelden
+        </button>
     </form>
 
     <h1>Recente contacten.</h1>
     <%
+        ArrayList<Chat> chats = (ArrayList<Chat>) request.getAttribute("chats");
+        //out.print(chats.get(0) + " " + chats.get(0).receiver + " " + chats.get(0).getSender());
         ArrayList<Message> list = (ArrayList<Message>) request.getAttribute("list");
-        if (list.size() > 0) {
+
+        if (chats.size() > 0) {
     %>
     <div class="contact">
         <div class="contactImage">
@@ -50,11 +62,11 @@
             <h4>
                 <%
                     try {
-                        Message e = list.get(list.size() - 1);
-                        out.print(e.getSenderName());
+                        String contact = chats.get(chats.size() - 1).getReceivedList().get(chats.get(chats.size() - 1).getReceivedList().size() - 1).getSenderName();
 
+                        out.print(contact);
                     } catch (Exception ex) {
-                        ex.printStackTrace();
+                        out.print("Geen recente contacten");
                     }
                 %>
             </h4>
@@ -62,29 +74,32 @@
     </div>
     <% } %>
     <%
-        if (list.size() > 1) {
+        if (chats.size() > 1) {
     %>
-    <div class="contact">
+    <div class="contact" id="logout-button" onclick="formSubmit()">
         <div class="contactImage">
         </div>
         <div class="contactInfo" id="contact2">
-        <h4>
-            <%
-                try {
-                    Message e = list.get(list.size() - 2);
-                    out.print(e.getSenderName());
+            <h4>
+                <%
+                    try {
+                        String contact2 = chats.get(chats.size() - 1).getReceivedList().get(chats.get(chats.size() - 1).getReceivedList().size() - 1).getSenderName();
 
-                } catch (Exception ex) {
-                    out.print("...");
-                }
+                        out.print(contact2);
 
-            %>
-        </h4>
+                    } catch (Exception ex) {
+                        out.print("...");
+                    }
+
+                %>
+            </h4>
         </div>
     </div>
+
+
     <%}%>
     <%
-        if (list.size() > 2) {
+        if (chats.size() > 2) {
     %>
     <div class="contact">
         <div class="contactImage">
@@ -107,7 +122,7 @@
     <%}%>
 
     <%
-        if (list.size() > 3) {
+        if (chats.size() > 3) {
     %>
     <div class="contact">
         <div class="contactImage">
@@ -130,7 +145,7 @@
     </div>
     <%}%>
     <%
-        if (list.size() > 4) {
+        if (chats.size() > 4) {
     %>
     <div class="contact">
         <div class="contactImage">
@@ -153,7 +168,7 @@
     </div>
     <%}%>
     <%
-        if (list.size() > 5) {
+        if (chats.size() > 5) {
     %>
     <div class="contact">
         <div class="contactImage">
@@ -176,7 +191,7 @@
     </div>
     <%}%>
     <%
-        if (list.size() > 6) {
+        if (chats.size() > 6) {
     %>
     <div class="contact">
         <div class="contactImage">
@@ -190,9 +205,8 @@
                         out.print(e.getSenderName());
 
                     } catch (Exception ex) {
-                        out.print("...");
+                        out.print("");
                     }
-
                 %>
             </h4>
         </div>
@@ -205,32 +219,137 @@
     </div>
     <div class="messageContent">
         <div class="message">
-            <div class="own" id="receivedMessage">
-                <% if (application.getAttribute("message") != null) {%>
-                <%=application.getAttribute("message")%>
+            <%
+                if (chats.get(0).getReceivedList().size() > 2) {
+            %>
+            <div class="own" id="receivedMessage3">
+                <h4>
+                    <%
+                        try {
+                            String message3 = chats.get(0).getReceivedList().get(chats.get(0).getReceivedList().size() - 3).getMessage();
+                            out.print(message3);
+                        } catch (Exception ex) {
+                            out.print("");
+                        }
+                    %>
+                </h4>
+            </div>
+            <%}%>
+        </div>
+    </div>
+    <div class="messageContent">
+        <div class="message">
+            <%
+                if (chats.get(0).getSendList().size() > 2) {
+            %>
+            <div class="send" id="sendMessage3">
+                <h4>
+                    <%
+                        try {
+                            String sendMessage3 = chats.get(0).getReceivedList().get(chats.get(0).getSendList().size() - 3).getMessage();
+                            out.print(sendMessage3);
+                        } catch (Exception ex) {
+                            out.print("");
+                        }
+
+                    %>
+                </h4>
+            </div>
+            <%}%>
+            <div class="message">
+
+                <%
+                    if (chats.get(0).getReceivedList().size() > 1) {
+                %>
+                <div class="own" id="receivedMessage2">
+                    <h4>
+                        <%
+                            try {
+                                String message2 = chats.get(0).getReceivedList().get(chats.get(0).getReceivedList().size() - 2).getMessage();
+                                out.print(message2);
+                            } catch (Exception ex) {
+                                out.print("");
+                            }
+                        %>
+                    </h4>
+                </div>
                 <%}%>
             </div>
         </div>
     </div>
-    <div class="message">
-        <div class="send" id="sendMessage">
-            <% if (application.getAttribute("message") != null) {%>
-            <%=application.getAttribute("message")%>
+    <div class="messageContent">
+        <div class="message">
+            <%
+                if (chats.get(0).getSendList().size() > 1) {
+            %>
+            <div class="send" id="sendMessage2">
+                <h4>
+                    <%
+                        try {
+                            String sendMessage2 = chats.get(0).getReceivedList().get(chats.get(0).getSendList().size() - 2).getMessage();
+                            out.print(sendMessage2);
+                        } catch (Exception ex) {
+                            out.print("");
+                        }
+                    %>
+                </h4>
+            </div>
             <%}%>
+            <div class="message">
+                <%
+                    if (chats.get(0).getReceivedList().size() > 0) {
+                %>
+                <div class="own" id="receivedMessage1">
+                    <h4>
+                        <%
+                            try {
+                                String message = chats.get(0).getReceivedList().get(chats.get(0).getReceivedList().size() - 1).getMessage();
+                                out.print(message);
+                            } catch (Exception ex) {
+                                out.print("");
+                            }
+                        %>
+                    </h4>
+                </div>
+                <%}%>
+            </div>
         </div>
     </div>
-</div>
+
+    <div class="messageContent">
+        <div class="message">
+            <%
+                if (chats.get(0).getSendList().size() > 0) {
+            %>
+            <div class="send" id="sendMessage1">
+                <h4>
+                    <%
+                        try {
+                            String sendMessage = chats.get(0).getReceivedList().get(chats.get(0).getSendList().size() - 1).getMessage();
+                            out.print(sendMessage);
+                        } catch (Exception ex) {
+                            out.print("");
+                        }
+                    %>
+                </h4>
+            </div>
+            <%}%>
+        </div>
+        <div class="sendBar">
+            <form action="/SendMessage" class="sendForm">
+                <input type="file" id="selectedFile" style="display: none">
+                <input type="button" value="Bijlage" class="button"
+                       onclick="document.getElementById('selectedFile').click();">
+                <input type="text" name="value" placeholder="Typ hier uw bericht">
+                <input type="submit" id="submitButton" style="display: none">
+                <i class="fa fa-paper-plane fa-3x" onclick="document.getElementById('submitButton').click();"></i>
+            </form>
+        </div>
+    </div>
 
 
-<div class="sendBar">
-    <form action="/SendMessage" class="sendForm">
-        <input type="file" id="selectedFile" style="display: none">
-        <input type="button" value="FOTO" class="button" onclick="document.getElementById('selectedFile').click();">
-        <input type="text" placeholder="Typ hier uw bericht">
-        <input type="submit" id="submitButton" style="display: none">
-        <i class="fa fa-paper-plane fa-3x" onclick="document.getElementById('submitButton').click();"></i>
-    </form>
 </div>
+
 </div>
 
 <script>

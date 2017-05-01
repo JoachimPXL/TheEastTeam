@@ -15,7 +15,9 @@ mkyong\hybrid\steganografie\Steganography_View$Text_Panel.class
 Servlets\LogoutServlet.class
 mkyong\hybrid\steganografie\Steganography_View.class
 Servlets\MessageServlet.class
+Servlets\ReadMessagesServlet.class
 Servlets\RegisterServlet.class
+JavaBeans\Chat.class
 mkyong\hybrid\steganografie\Steganography_View$Image_Panel.class
 mkyong\onekey\GenerateSymmetricKey.class
 Servlets\MySqlConnect.class

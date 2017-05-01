@@ -5,6 +5,7 @@ C:\Users\11500555\AppData\Desktop\TheEastTeam\CryptoKing\src\main\java\mkyong\hy
 C:\Users\11500555\AppData\Desktop\TheEastTeam\CryptoKing\src\main\java\mkyong\hybrid\steganografie\Steganography_View.java
 C:\Users\11500555\AppData\Desktop\TheEastTeam\CryptoKing\src\main\java\Servlets\MessageServlet.java
 C:\Users\11500555\AppData\Desktop\TheEastTeam\CryptoKing\src\main\java\Servlets\MySqlConnect.java
+C:\Users\11500555\AppData\Desktop\TheEastTeam\CryptoKing\src\main\java\Servlets\ReadMessagesServlet.java
 C:\Users\11500555\AppData\Desktop\TheEastTeam\CryptoKing\src\main\java\mkyong\hybrid\decrypt\StartDecryption.java
 C:\Users\11500555\AppData\Desktop\TheEastTeam\CryptoKing\src\main\java\mkyong\keypair\GenerateKeys.java
 C:\Users\11500555\AppData\Desktop\TheEastTeam\CryptoKing\src\main\java\mkyong\hybrid\writers\Hash.java
@@ -14,6 +15,7 @@ C:\Users\11500555\AppData\Desktop\TheEastTeam\CryptoKing\src\main\java\mkyong\hy
 C:\Users\11500555\AppData\Desktop\TheEastTeam\CryptoKing\src\main\java\mkyong\onekey\GenerateSymmetricKey.java
 C:\Users\11500555\AppData\Desktop\TheEastTeam\CryptoKing\src\main\java\mkyong\hybrid\encrypt\EncryptKey.java
 C:\Users\11500555\AppData\Desktop\TheEastTeam\CryptoKing\src\main\java\Servlets\LogoutServlet.java
+C:\Users\11500555\AppData\Desktop\TheEastTeam\CryptoKing\src\main\java\JavaBeans\Chat.java
 C:\Users\11500555\AppData\Desktop\TheEastTeam\CryptoKing\src\main\java\mkyong\hybrid\decrypt\DecryptData.java
 C:\Users\11500555\AppData\Desktop\TheEastTeam\CryptoKing\src\main\java\mkyong\hybrid\decrypt\DecryptKey.java
 C:\Users\11500555\AppData\Desktop\TheEastTeam\CryptoKing\src\main\java\Servlets\RegisterServlet.java

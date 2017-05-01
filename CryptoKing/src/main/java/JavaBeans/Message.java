@@ -12,14 +12,24 @@ public class Message implements Serializable {
     private int senderId;
     private int receiverId;
     private String senderName;
+    private String receiverName;
 
-
-    public Message(byte[] fileInBytes, String message, int senderId, int receiver, String senderName) {
+    public Message(byte[] fileInBytes, String message, int senderId, int receiver, String senderName, String receiverName) {
         this.fileInBytes = fileInBytes;
         this.message = message;
         this.senderId = senderId;
         this.receiverId = receiver;
         this.senderName = senderName;
+        this.receiverName=receiverName;
+
+    }
+
+    public String getReceiverName() {
+        return receiverName;
+    }
+
+    public void setReceiverName(String receiverName) {
+        this.receiverName = receiverName;
     }
 
     public int getReceiverId() {
@@ -40,7 +50,6 @@ public class Message implements Serializable {
 
     public byte[] getFileInBytes() {
         return fileInBytes;
-
     }
 
     public void setFileInBytes(byte[] fileInBytes) {
