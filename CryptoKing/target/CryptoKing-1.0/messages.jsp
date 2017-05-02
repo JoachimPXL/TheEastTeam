@@ -18,231 +18,44 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://use.fontawesome.com/362994279d.js"></script>
 </head>
-<script>
-    function formSubmit()
-    {
-        this.submit(window.location.href='LogoutServlet');
-
-    }
-</script>
 <body>
-<div class="people">
-
-    <%
-        String userName = null;
-        Cookie[] cookies = request.getCookies();
-        if (cookies != null) {
-            for (Cookie cookie : cookies) {
-                if (cookie.getName().equals("user")) userName = cookie.getValue();
-            }
+<%
+    String userName = null;
+    Cookie[] cookies = request.getCookies();
+    if (cookies != null) {
+        for (Cookie cookie : cookies) {
+            if (cookie.getName().equals("user")) userName = cookie.getValue();
         }
-        if (userName == null) response.sendRedirect("login.jsp");
-    %>
+    }
+    if (userName == null) response.sendRedirect("login.jsp");
+%>
 
-    <h1>Aangemeld als: <%=userName %>
-    </h1>
-    <form action="LogoutServlet" method="post">
-        <button type="submit" class="button">
-            Afmelden
-        </button>
-    </form>
-
-    <h1>Recente contacten.</h1>
-    <%
-        ArrayList<Message> list = (ArrayList<Message>) request.getAttribute("list");
-        ArrayList<String> contacten = new ArrayList<String>();
-
-        if (list.size() > 0) {
-    %>
-    <div class="contact">
-        <div class="contactImage">
-        </div>
-        <div class="contactInfo" id="contact1">
-            <h4>
-                <%
-                    try {
-                        Message e = list.get(list.size() - 1);
-                        contacten.add(e.getSenderName());
-                        out.print(e.getSenderName());
-                    } catch (Exception ex) {
-                        ex.printStackTrace();
-                    }
-                %>
-            </h4>
-        </div>
-    </div>
-    <% } %>
-    <%
-        if (list.size() > 1) {
-    %>
-    <div class="contact" id="logout-button" onclick="formSubmit()">
-        <div class="contactImage">
-        </div>
-        <div class="contactInfo" id="contact2" >
-            <h4>
-                <%
-                    try {
-                        Message e = list.get(list.size() - 2);
-                        out.print(e.getSenderName());
-
-                    } catch (Exception ex) {
-                        out.print("...");
-                    }
-
-                %>
-            </h4>
-        </div>
-    </div>
-
-
-    <%}%>
-    <%
-        if (list.size() > 2) {
-    %>
-    <div class="contact">
-        <div class="contactImage">
-        </div>
-        <div class="contactInfo" id="contact3">
-            <h4>
-                <%
-                    try {
-                        Message e = list.get(list.size() - 3);
-                        out.print(e.getSenderName());
-
-                    } catch (Exception ex) {
-                        out.print("...");
-                    }
-
-                %>
-            </h4>
-        </div>
-    </div>
-    <%}%>
-
-    <%
-        if (list.size() > 3) {
-    %>
-    <div class="contact">
-        <div class="contactImage">
-
-        </div>
-        <div class="contactInfo" id="contact5">
-            <h4>
-                <%
-                    try {
-                        Message e = list.get(list.size() - 4);
-                        out.print(e.getSenderName());
-
-                    } catch (Exception ex) {
-                        out.print("...");
-                    }
-
-                %>
-            </h4>
-        </div>
-    </div>
-    <%}%>
-    <%
-        if (list.size() > 4) {
-    %>
-    <div class="contact">
-        <div class="contactImage">
-
-        </div>
-        <div class="contactInfo" id="contact6">
-            <h4>
-                <%
-                    try {
-                        Message e = list.get(list.size() - 5);
-                        out.print(e.getSenderName());
-
-                    } catch (Exception ex) {
-                        out.print("...");
-                    }
-
-                %>
-            </h4>
-        </div>
-    </div>
-    <%}%>
-    <%
-        if (list.size() > 5) {
-    %>
-    <div class="contact">
-        <div class="contactImage">
-
-        </div>
-        <div class="contactInfo" id="contact7">
-            <h4>
-                <%
-                    try {
-                        Message e = list.get(list.size() - 6);
-                        out.print(e.getSenderName());
-
-                    } catch (Exception ex) {
-                        out.print("...");
-                    }
-
-                %>
-            </h4>
-        </div>
-    </div>
-    <%}%>
-    <%
-        if (list.size() > 6) {
-    %>
-    <div class="contact">
-        <div class="contactImage">
-
-        </div>
-        <div class="contactInfo" id="contact8">
-            <h4>
-                <%
-                    try {
-                        Message e = list.get(list.size() - 7);
-                        out.print(e.getSenderName());
-
-                    } catch (Exception ex) {
-                        out.print("...");
-                    }
-
-                %>
-            </h4>
-        </div>
-    </div>
-    <%}%>
-</div>
-<div class="messages" id="messages">
-    <div class="headerTitle">
-        <h1 class="black">Berichten</h1>
-    </div>
-    <div class="messageContent">
-        <div class="message">
-            <div class="own" id="receivedMessage">
-                <% if (application.getAttribute("message") != null) {%>
-                <%=application.getAttribute("message")%>
-                <%}%>
+    <div class="loginImage">
+        <div class="loginBar">
+            <div class="content">
+                <h1>Basic Security Messenger</h1>
+                <p>Maak een nieuw account aan</p>
+                <form method="post" id="registerForm" action="SendMessage" > <!-- TODO Actiontag invullen naar nodige link-->
+                    <div class="inputField">
+                        <input type="text" placeholder="Ontvanger" name="receiver" required>
+                    </div>
+                    <div class="inputField">
+                        <input type="text" placeholder="Boodschap" name="user" required>
+                    </div>
+                        <input type="hidden" value="<%=userName%>" name="userName">
+                    <div class="inputField" >
+                        <p for="files">File to encrypt</p>
+                        <input type="file" name="fileToEncrypt" id="file" class="hidden">
+                    </div>
+                    <input type="submit" value="SendMessage" class="button">
+                </form>
+                <form method="get" action="Message">
+                    <button class="button">
+                        Terugkeren naar home.
+                    </button>
+                </form>
             </div>
-        </div>
     </div>
-    <div class="message">
-        <div class="send" id="sendMessage">
-            <% if (application.getAttribute("message") != null) {%>
-            <%=application.getAttribute("message")%>
-            <%}%>
-        </div>
-    </div>
-    <div class="sendBar">
-        <form action="/SendMessage" class="sendForm">
-            <input type="file" id="selectedFile" style="display: none">
-            <input type="button" value="FOTO" class="button" onclick="document.getElementById('selectedFile').click();">
-            <input type="text" placeholder="Typ hier uw bericht">
-            <input type="submit" id="submitButton" style="display: none">
-            <i class="fa fa-paper-plane fa-3x" onclick="document.getElementById('submitButton').click();"></i>
-        </form>
-    </div>
-</div>
-
 </div>
 
 <script>

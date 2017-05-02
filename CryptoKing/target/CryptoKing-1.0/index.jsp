@@ -19,11 +19,18 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://use.fontawesome.com/362994279d.js"></script>
 </head>
-<script>
+<script language="javascript" type="text/javascript">
+    <!--
+    function initInput()
+    {
+        var variable = '<%= request.getAttribute("chats") %>;'
+        document.getElementById("IChats").value = variable;
+    }
+    //-->
     function formSubmit() {
         this.submit(window.location.href = 'LogoutServlet');
-
     }
+
 </script>
 <body>
 <div class="people">
@@ -47,12 +54,17 @@
         </button>
     </form>
 
-    <h1>Recente contacten.</h1>
+    <h1>Recente contacten:</h1>
     <%
-        ArrayList<Chat> chats = (ArrayList<Chat>) request.getAttribute("chats");
-        //out.print(chats.get(0) + " " + chats.get(0).receiver + " " + chats.get(0).getSender());
-        ArrayList<Message> list = (ArrayList<Message>) request.getAttribute("list");
-
+        ArrayList<Chat> chats = null;
+        ArrayList<Message> list = null;
+        Chat currentChat = null;
+        try {
+             chats = (ArrayList<Chat>) request.getAttribute("chats");
+             list = (ArrayList<Message>) request.getAttribute("list");
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
         if (chats.size() > 0) {
     %>
     <div class="contact">
@@ -72,7 +84,10 @@
             </h4>
         </div>
     </div>
-    <% } %>
+    <h4>
+    <% }
+     %>
+    </h4>
     <%
         if (chats.size() > 1) {
     %>
@@ -212,6 +227,11 @@
         </div>
     </div>
     <%}%>
+    <% out.println(" <form action=\"messages.jsp\">\n" +
+    "        <button type=\"submit\" class=\"button\">\n" +
+        "            Nieuw bericht\n" +
+        "        </button>\n" +
+    "    </form>"); %>
 </div>
 <div class="messages" id="messages">
     <div class="headerTitle">
@@ -220,6 +240,7 @@
     <div class="messageContent">
         <div class="message">
             <%
+                try {
                 if (chats.get(0).getReceivedList().size() > 2) {
             %>
             <div class="own" id="receivedMessage3">
@@ -234,19 +255,23 @@
                     %>
                 </h4>
             </div>
-            <%}%>
+            <%}
+            } catch (Exception ex) {
+
+            }%>
         </div>
     </div>
     <div class="messageContent">
         <div class="message">
             <%
+                try {
                 if (chats.get(0).getSendList().size() > 2) {
             %>
             <div class="send" id="sendMessage3">
                 <h4>
                     <%
                         try {
-                            String sendMessage3 = chats.get(0).getReceivedList().get(chats.get(0).getSendList().size() - 3).getMessage();
+                            String sendMessage3 = chats.get(0).getSendList().get(chats.get(0).getSendList().size() - 3).getMessage();
                             out.print(sendMessage3);
                         } catch (Exception ex) {
                             out.print("");
@@ -255,10 +280,14 @@
                     %>
                 </h4>
             </div>
-            <%}%>
+            <%}
+            } catch (Exception ex) {
+
+            }%>
             <div class="message">
 
                 <%
+                    try {
                     if (chats.get(0).getReceivedList().size() > 1) {
                 %>
                 <div class="own" id="receivedMessage2">
@@ -273,20 +302,24 @@
                         %>
                     </h4>
                 </div>
-                <%}%>
+                <%}
+                } catch (Exception ex) {
+
+                }%>
             </div>
         </div>
     </div>
     <div class="messageContent">
         <div class="message">
             <%
+                try {
                 if (chats.get(0).getSendList().size() > 1) {
             %>
             <div class="send" id="sendMessage2">
                 <h4>
                     <%
                         try {
-                            String sendMessage2 = chats.get(0).getReceivedList().get(chats.get(0).getSendList().size() - 2).getMessage();
+                            String sendMessage2 = chats.get(0).getSendList().get(chats.get(0).getSendList().size() - 2).getMessage();
                             out.print(sendMessage2);
                         } catch (Exception ex) {
                             out.print("");
@@ -294,9 +327,13 @@
                     %>
                 </h4>
             </div>
-            <%}%>
+            <%}
+            } catch (Exception ex) {
+
+            }%>
             <div class="message">
                 <%
+                    try {
                     if (chats.get(0).getReceivedList().size() > 0) {
                 %>
                 <div class="own" id="receivedMessage1">
@@ -311,7 +348,10 @@
                         %>
                     </h4>
                 </div>
-                <%}%>
+                <%}
+                } catch (Exception ex) {
+
+                }%>
             </div>
         </div>
     </div>
@@ -319,13 +359,14 @@
     <div class="messageContent">
         <div class="message">
             <%
+                try {
                 if (chats.get(0).getSendList().size() > 0) {
             %>
             <div class="send" id="sendMessage1">
                 <h4>
                     <%
                         try {
-                            String sendMessage = chats.get(0).getReceivedList().get(chats.get(0).getSendList().size() - 1).getMessage();
+                            String sendMessage = chats.get(0).getSendList().get(chats.get(0).getSendList().size() - 1).getMessage();
                             out.print(sendMessage);
                         } catch (Exception ex) {
                             out.print("");
@@ -333,14 +374,19 @@
                     %>
                 </h4>
             </div>
-            <%}%>
+            <%}
+            } catch (Exception ex) {
+
+            }%>
         </div>
         <div class="sendBar">
-            <form action="/SendMessage" class="sendForm">
-                <input type="file" id="selectedFile" style="display: none">
-                <input type="button" value="FOTO" class="button"
-                       onclick="document.getElementById('selectedFile').click();">
-                <input type="text" placeholder="Typ hier uw bericht">
+            <form action="SendMessage" class="sendForm" method="post" >
+                <input type="file" name="fileToEncrypt" style="display: none">
+                <input type="hidden" value="<%=userName%>" name="userName">
+                <input type="hidden" value="<%=chats.get(0).getSender()%>" name="receiver">
+                <input type="button" value="Bijlage" class="button"
+                       onclick="document.getElementById('fileToEncrypt').click();">
+                <input type="text" name="user" placeholder="Typ hier uw bericht">
                 <input type="submit" id="submitButton" style="display: none">
                 <i class="fa fa-paper-plane fa-3x" onclick="document.getElementById('submitButton').click();"></i>
             </form>

@@ -87,20 +87,28 @@ public class MessageServlet extends HttpServlet {
 
         request.setAttribute("listSent", listSent);
 
-        if(listSent.size() > 0 && listReceived.size() > 0) {
-            chats.add(new Chat(userName, listReceived.get(0).getSenderName()));
-            for (Message message: listReceived) {
-                if(message.getSenderName().equals(chats.get(0).getSender()) && message.getReceiverName().equals(chats.get(0).getReceiver()) ) {
-                    chats.get(0).addReceivedMessage(message);
-                }
-            }
-            for (Message message: listSent) {
-                if(message.getSenderName().equals(chats.get(0).getReceiver()) && message.getReceiverName().equals(chats.get(0).getSender()) ) {
-                    chats.get(0).addSendMessage(message);
-                }
-            }
-        } else {
+        try {
+            if (listSent.size() > 0 && listReceived.size() > 0) {
+                chats.add(new Chat(userName, listReceived.get(0).getSenderName()));
+                for (Message message : listReceived) {
+                    if (message.getSenderName().equals(chats.get(0).getSender()) && message.getReceiverName().equals(chats.get(0).getReceiver())) {
+                        chats.get(0).addReceivedMessage(message);
+                    } else {
 
+                    }
+                }
+                for (Message message : listSent) {
+                    if (message.getSenderName().equals(chats.get(0).getReceiver()) && message.getReceiverName().equals(chats.get(0).getSender())) {
+                        chats.get(0).addSendMessage(message);
+                    } else {
+
+                    }
+                }
+            } else {
+
+            }
+        } catch (Exception ex) {
+            System.out.print("error bij het vullen van de chats.");
         }
 
         request.setAttribute("chats", chats);
@@ -113,7 +121,6 @@ public class MessageServlet extends HttpServlet {
                 .getRequestDispatcher("/index.jsp");
         rd.forward(request, response);
     }
-
 
     private String getSenderName(int senderId) {
         Connection conn;

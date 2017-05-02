@@ -14,6 +14,9 @@ public class Message implements Serializable {
     private String senderName;
     private String receiverName;
 
+    public Message() {
+    }
+
     public Message(byte[] fileInBytes, String message, int senderId, int receiver, String senderName, String receiverName) {
         this.fileInBytes = fileInBytes;
         this.message = message;
