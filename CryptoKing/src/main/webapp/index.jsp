@@ -91,7 +91,7 @@
     <%
         if (chats.size() > 1) {
     %>
-    <div class="contact" id="logout-button" onclick="formSubmit()">
+    <div class="contact">
         <div class="contactImage">
         </div>
         <div class="contactInfo" id="contact2">
@@ -228,10 +228,19 @@
     </div>
     <%}%>
     <% out.println(" <form action=\"messages.jsp\">\n" +
-    "        <button type=\"submit\" class=\"button\">\n" +
+        "        <button type=\"submit\" class=\"button\">\n" +
         "            Nieuw bericht\n" +
         "        </button>\n" +
-    "    </form>"); %>
+        "    </form>"); %>
+
+    <% try {
+        if(chats.get(0) != null) { %>
+   <form action="DeleteChat" method="post">
+    <button type="submit" class="button">Verwijder gesprek</button>
+       <input type="hidden" value="<%=userName%>" name="userName">
+       <input type="hidden" value="<%=chats.get(0).getSender()%>" name="receiver">
+   </form>
+    <% } } catch (Exception ex) { ex.printStackTrace(); } %>
 </div>
 <div class="messages" id="messages">
     <div class="headerTitle">
@@ -257,7 +266,7 @@
             </div>
             <%}
             } catch (Exception ex) {
-
+                ex.printStackTrace();
             }%>
         </div>
     </div>
@@ -282,7 +291,7 @@
             </div>
             <%}
             } catch (Exception ex) {
-
+                    ex.printStackTrace();
             }%>
             <div class="message">
 
@@ -304,7 +313,7 @@
                 </div>
                 <%}
                 } catch (Exception ex) {
-
+                    ex.printStackTrace();
                 }%>
             </div>
         </div>
@@ -329,7 +338,7 @@
             </div>
             <%}
             } catch (Exception ex) {
-
+                ex.printStackTrace();
             }%>
             <div class="message">
                 <%
@@ -350,7 +359,7 @@
                 </div>
                 <%}
                 } catch (Exception ex) {
-
+                    ex.printStackTrace();
                 }%>
             </div>
         </div>
@@ -376,24 +385,23 @@
             </div>
             <%}
             } catch (Exception ex) {
-
+                ex.printStackTrace();
             }%>
         </div>
+        <% try { %>
         <div class="sendBar">
             <form action="SendMessage" class="sendForm" method="post" >
                 <input type="file" name="fileToEncrypt" style="display: none">
                 <input type="hidden" value="<%=userName%>" name="userName">
                 <input type="hidden" value="<%=chats.get(0).getSender()%>" name="receiver">
-                <input type="button" value="Bijlage" class="button"
-                       onclick="document.getElementById('fileToEncrypt').click();">
+                <input type="button" value="Bijlage" class="button" onclick="document.getElementById('fileToEncrypt').click();">
                 <input type="text" name="user" placeholder="Typ hier uw bericht">
                 <input type="submit" id="submitButton" style="display: none">
                 <i class="fa fa-paper-plane fa-3x" onclick="document.getElementById('submitButton').click();"></i>
             </form>
         </div>
+        <% } catch (Exception ex) { ex.printStackTrace(); } %>
     </div>
-
-
 </div>
 
 </div>

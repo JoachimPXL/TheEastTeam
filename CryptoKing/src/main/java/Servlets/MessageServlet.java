@@ -31,7 +31,6 @@ public class MessageServlet extends HttpServlet {
 
     public void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
         //Validate cookies to get receiverID and userName
         Cookie[] cookies = request.getCookies();
         if(cookies !=null){
@@ -55,14 +54,12 @@ public class MessageServlet extends HttpServlet {
             PreparedStatement pst = conn.prepareStatement("select * from messages where receiverId=?");
             pst.setInt(1, receiverId );
             ResultSet rs = pst.executeQuery();
-
             while (rs.next()) {
 
                 Message message = new Message(rs.getBytes(5), rs.getString(4), rs.getInt(2), rs.getInt(3), getSenderName(rs.getInt(2)), userName);
                 //out.print(message);
                 listReceived.add(message);
             }
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -84,28 +81,61 @@ public class MessageServlet extends HttpServlet {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         request.setAttribute("listSent", listSent);
 
         try {
             if (listSent.size() > 0 && listReceived.size() > 0) {
                 chats.add(new Chat(userName, listReceived.get(0).getSenderName()));
                 for (Message message : listReceived) {
-                    if (message.getSenderName().equals(chats.get(0).getSender()) && message.getReceiverName().equals(chats.get(0).getReceiver())) {
-                        chats.get(0).addReceivedMessage(message);
-                    } else {
+                        if (message.getSenderName().equals(chats.get(0).getSender()) && message.getReceiverName().equals(chats.get(0).getReceiver())) {
+                            chats.get(0).addReceivedMessage(message);
+                        } else {
 
+                        }
                     }
-                }
-                for (Message message : listSent) {
-                    if (message.getSenderName().equals(chats.get(0).getReceiver()) && message.getReceiverName().equals(chats.get(0).getSender())) {
-                        chats.get(0).addSendMessage(message);
-                    } else {
+                    for (Message message : listSent) {
+                        if (message.getSenderName().equals(chats.get(0).getReceiver()) && message.getReceiverName().equals(chats.get(0).getSender())) {
+                            chats.get(0).addSendMessage(message);
+                        } else {
 
-                    }
+                        }
                 }
             } else {
+                if (listSent.size() > 0 && listReceived.size() == 0) {
+                    chats.add(new Chat(userName, listSent.get(0).getReceiverName()));
+                    for (Message message : listReceived) {
+                        if (message.getSenderName().equals(chats.get(0).getSender()) && message.getReceiverName().equals(chats.get(0).getReceiver())) {
+                            chats.get(0).addReceivedMessage(message);
+                        } else {
 
+                        }
+                    }
+                    for (Message message : listSent) {
+                        if (message.getSenderName().equals(chats.get(0).getReceiver()) && message.getReceiverName().equals(chats.get(0).getSender())) {
+                            chats.get(0).addSendMessage(message);
+                        } else {
+
+                        }
+                    }
+                } else {
+                    if (listSent.size() == 0 && listReceived.size() > 0) {
+                        chats.add(new Chat(userName, listReceived.get(0).getSenderName()));
+                        for (Message message : listReceived) {
+                            if (message.getSenderName().equals(chats.get(0).getSender()) && message.getReceiverName().equals(chats.get(0).getReceiver())) {
+                                chats.get(0).addReceivedMessage(message);
+                            } else {
+
+                            }
+                        }
+                        for (Message message : listSent) {
+                            if (message.getSenderName().equals(chats.get(0).getReceiver()) && message.getReceiverName().equals(chats.get(0).getSender())) {
+                                chats.get(0).addSendMessage(message);
+                            } else {
+
+                            }
+                        }
+                    }
+                }
             }
         } catch (Exception ex) {
             System.out.print("error bij het vullen van de chats.");
@@ -123,7 +153,7 @@ public class MessageServlet extends HttpServlet {
     }
 
     private String getSenderName(int senderId) {
-        Connection conn;
+        Connection conn = null;
         try {
             Class.forName("com.mysql.jdbc.Driver");
         } catch (ClassNotFoundException e) {
