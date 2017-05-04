@@ -33,9 +33,8 @@
     <div class="loginImage">
         <div class="loginBar">
             <div class="content">
-                <h1>Basic Security Messenger</h1>
-                <p>Maak een nieuw account aan</p>
-                <form method="post" id="registerForm" action="SendMessage" > <!-- TODO Actiontag invullen naar nodige link-->
+                <p>Verstuur een bericht</p>
+                <form method="post" action="SendMessage"> <!-- TODO Actiontag invullen naar nodige link-->
                     <div class="inputField">
                         <input type="text" placeholder="Ontvanger" name="receiver" required>
                     </div>
@@ -44,8 +43,7 @@
                     </div>
                         <input type="hidden" value="<%=userName%>" name="userName">
                     <div class="inputField" >
-                        <p for="files">File to encrypt</p>
-                        <input type="file" name="fileToEncrypt" id="file" class="hidden">
+                        <input type="file" name="file" id="file">
                     </div>
                     <input type="submit" value="SendMessage" class="button">
                 </form>

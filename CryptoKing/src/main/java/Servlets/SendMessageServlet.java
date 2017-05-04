@@ -31,13 +31,14 @@ public class SendMessageServlet extends HttpServlet {
         System.out.println(user + " " + receiver + " " + message);
         InputStream inputStreamFileToEncrypt = null;
         byte[] fileToEncrypt = null;
+        Part fileToEncryptPart = request.getPart("file");
 
         try {
-            Part fileToEncryptPart = request.getPart("fileToEncrypt");
             if (fileToEncryptPart != null) {
                 inputStreamFileToEncrypt = fileToEncryptPart.getInputStream();
             }
             fileToEncrypt = getBytesFromInputstream(inputStreamFileToEncrypt);
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -49,16 +50,16 @@ public class SendMessageServlet extends HttpServlet {
             pst.setInt(1, getUserId(user));
             pst.setInt(2, getUserId(receiver));
             pst.setString(3, message);
-            pst.setBytes(4,fileToEncrypt);
+            pst.setBytes(4, fileToEncrypt);
             pst.executeUpdate();
-
+            conn.close();
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            conn = null;
         }
         response.sendRedirect(request.getContextPath() + "/Message");
     }
-
-
 
     private byte[] getBytesFromInputstream(InputStream inputStreamPublic) throws IOException {
         ByteArrayOutputStream buffer = new ByteArrayOutputStream();
@@ -77,7 +78,7 @@ public class SendMessageServlet extends HttpServlet {
     }
 
     private int getUserId(String user) {
-        Connection conn;
+        Connection conn = null;
         try {
             Class.forName("com.mysql.jdbc.Driver");
         } catch (ClassNotFoundException e) {
@@ -91,8 +92,11 @@ public class SendMessageServlet extends HttpServlet {
             if (rs.next()) {
                 return rs.getInt(1);
             }
+            conn.close();
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            conn = null;
         }
         return 0;
     }

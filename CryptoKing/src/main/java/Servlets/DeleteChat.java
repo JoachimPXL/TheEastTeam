@@ -30,21 +30,18 @@ public class DeleteChat extends HttpServlet {
             pst.setInt(2, getUserId(user));
             int result = pst.executeUpdate();
             System.out.println(result + " " + "messages verwijderd." );
+
+            PreparedStatement pstSend = conn.prepareStatement("DELETE FROM messages WHERE senderId=? AND receiverId=?");
+            pstSend.setInt(1, getUserId(user));
+            pstSend.setInt(2, getUserId(receiver));
+            int resultSend = pst.executeUpdate();
+            System.out.println(resultSend + " " + "messages verwijderd." );
+            conn.close();
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            conn = null;
         }
-
-        try {
-            conn = DriverManager.getConnection(dbURL, dbUser, dbPass);
-            PreparedStatement pst = conn.prepareStatement("DELETE FROM messages WHERE senderId=? AND receiverId=?");
-            pst.setInt(1, getUserId(user));
-            pst.setInt(2, getUserId(receiver));
-            int result = pst.executeUpdate();
-            System.out.println(result + " " + "messages verwijderd." );
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
         resp.sendRedirect(req.getContextPath() + "/Message");
     }
 
@@ -64,8 +61,11 @@ public class DeleteChat extends HttpServlet {
             if (rs.next()) {
                 return rs.getInt(1);
             }
+            conn.close();
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            conn = null;
         }
         return 0;
     }

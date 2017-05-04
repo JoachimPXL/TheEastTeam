@@ -24,10 +24,6 @@ public class RegisterServlet extends HttpServlet {
     private String dbUser = "u5162p3748_jojo";
     private String dbPass = "test123";
 
-    /*protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getRequestDispatcher("/register.jsp")
-                .forward(request, response);
-    }*/
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -78,11 +74,13 @@ public class RegisterServlet extends HttpServlet {
                     stmt.executeUpdate();
                     request.setAttribute("error", "Account has been created!");
                     request.getRequestDispatcher("/register.jsp").forward(request, response);
+                    con.close();
                 } catch (Exception ex) {
                     System.out.println(ex.getMessage());
                     ex.printStackTrace(System.err);
                 }
             }
+            conn.close();
         } catch (SQLException e) {
             e.printStackTrace();
             out.println("SQL EXCEPTION.");

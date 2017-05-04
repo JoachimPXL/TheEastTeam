@@ -390,11 +390,11 @@
         </div>
         <% try { %>
         <div class="sendBar">
-            <form action="SendMessage" class="sendForm" method="post" >
-                <input type="file" name="fileToEncrypt" style="display: none">
+            <form action="SendMessage" class="sendForm" method="post">
+                <input type="file" name="file" style="display: none">
                 <input type="hidden" value="<%=userName%>" name="userName">
                 <input type="hidden" value="<%=chats.get(0).getSender()%>" name="receiver">
-                <input type="button" value="Bijlage" class="button" onclick="document.getElementById('fileToEncrypt').click();">
+                <input type="button" value="Bijlage" class="button" onclick="document.getElementById('file').click();">
                 <input type="text" name="user" placeholder="Typ hier uw bericht">
                 <input type="submit" id="submitButton" style="display: none">
                 <i class="fa fa-paper-plane fa-3x" onclick="document.getElementById('submitButton').click();"></i>

@@ -55,11 +55,18 @@ public class MessageServlet extends HttpServlet {
             pst.setInt(1, receiverId );
             ResultSet rs = pst.executeQuery();
             while (rs.next()) {
-
                 Message message = new Message(rs.getBytes(5), rs.getString(4), rs.getInt(2), rs.getInt(3), getSenderName(rs.getInt(2)), userName);
-                //out.print(message);
                 listReceived.add(message);
             }
+
+            PreparedStatement pstSend = conn.prepareStatement("select * from messages where senderId=?");
+            pstSend.setInt(1, receiverId );
+            ResultSet rsSend = pstSend.executeQuery();
+            while (rsSend.next()) {
+                Message message = new Message(rsSend.getBytes(5), rsSend.getString(4), rsSend.getInt(2), rsSend.getInt(3), userName, getSenderName(rsSend.getInt(3)));
+                listSent.add(message);
+            }
+            conn.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -68,7 +75,7 @@ public class MessageServlet extends HttpServlet {
         // set the attribute in the request to access it on the JSP
         request.setAttribute("list", listReceived);
         //get sent messages by logged-in user
-        try {
+        /* try {
             conn = DriverManager.getConnection(dbURL, dbUser, dbPass);
             PreparedStatement pst = conn.prepareStatement("select * from messages where senderId=?");
             pst.setInt(1, receiverId );
@@ -81,6 +88,7 @@ public class MessageServlet extends HttpServlet {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        */
         request.setAttribute("listSent", listSent);
 
         try {
@@ -167,8 +175,11 @@ public class MessageServlet extends HttpServlet {
             if (rs.next()) {
                 return rs.getString(1);
             }
+            conn.close();
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            conn = null;
         }
         return "";
     }

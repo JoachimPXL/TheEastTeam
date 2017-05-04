@@ -37,15 +37,15 @@ public class MySqlConnect extends HttpServlet {
         PrintWriter out = response.getWriter();
         String user = request.getParameter("user");
         String pass = request.getParameter("pass");
+        Connection conn = null;
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            Connection conn = DriverManager.getConnection(dbURL, dbUser, dbPass);
+            conn = DriverManager.getConnection(dbURL, dbUser, dbPass);
             PreparedStatement pst = conn.prepareStatement("select username, password, id from users where username=?");
             pst.setString(1, user);
             ResultSet rs = pst.executeQuery();
             if (rs.next()) {
                 if (rs.getString("username").equals(user) && rs.getString("password").equals(pass)) {
-                    //out.println(rs.getString("username") + rs.getString("password"));
                     Id = rs.getInt(3);
                     userName = rs.getString("username");
                     Cookie loginCookie = new Cookie("user", user);
@@ -63,11 +63,14 @@ public class MySqlConnect extends HttpServlet {
                 request.getRequestDispatcher("/login.jsp")
                         .forward(request, response);
             }
+            conn.close();
         } catch (SQLException e) {
             e.printStackTrace();
             out.println("SQL EXCEPTION.");
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
+        } finally {
+            conn = null;
         }
     }
 
