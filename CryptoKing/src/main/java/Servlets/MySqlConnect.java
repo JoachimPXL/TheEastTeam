@@ -2,6 +2,7 @@ package Servlets;
 
 
 import JavaBeans.Message;
+import Services.HashWithSalt;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -41,11 +42,11 @@ public class MySqlConnect extends HttpServlet {
         try {
             Class.forName("com.mysql.jdbc.Driver");
             conn = DriverManager.getConnection(dbURL, dbUser, dbPass);
-            PreparedStatement pst = conn.prepareStatement("select username, password, id from users where username=?");
+            PreparedStatement pst = conn.prepareStatement("select username, password, id, salt from users where username=?");
             pst.setString(1, user);
             ResultSet rs = pst.executeQuery();
             if (rs.next()) {
-                if (rs.getString("username").equals(user) && rs.getString("password").equals(pass)) {
+                if (rs.getString("username").equals(user) && rs.getString("password").equals(HashWithSalt.generateHash(pass + rs.getString("salt")))) {
                     Id = rs.getInt(3);
                     userName = rs.getString("username");
                     Cookie loginCookie = new Cookie("user", user);

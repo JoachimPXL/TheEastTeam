@@ -1,6 +1,7 @@
 package Servlets;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -9,13 +10,13 @@ import javax.servlet.http.Part;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.PrintWriter;
 import java.sql.*;
 
 /**
  * Created by 11500555 on 2/05/2017.
  */
 @WebServlet("/SendMessage")
+@MultipartConfig(maxFileSize = 16177215)
 public class SendMessageServlet extends HttpServlet {
     private String dbURL = "jdbc:mysql://213.136.26.180/u5162p3748_joa?useLegacyDatetimeCode=false&serverTimezone=UTC";
     private String dbUser = "u5162p3748_jojo";
@@ -23,24 +24,24 @@ public class SendMessageServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setContentType("text/html");
-        PrintWriter out = response.getWriter();
         String user = request.getParameter("userName");
         String receiver = request.getParameter("receiver");
         String message = request.getParameter("user");
-        System.out.println(user + " " + receiver + " " + message);
-        InputStream inputStreamFileToEncrypt = null;
+
         byte[] fileToEncrypt = null;
-        Part fileToEncryptPart = request.getPart("file");
+        InputStream inputStreamConfidential = null;    // input stream of the upload file
 
-        try {
-            if (fileToEncryptPart != null) {
-                inputStreamFileToEncrypt = fileToEncryptPart.getInputStream();
-            }
-            fileToEncrypt = getBytesFromInputstream(inputStreamFileToEncrypt);
+        Part filePartConfidential = request.getPart("attachment");
 
-        } catch (Exception e) {
-            e.printStackTrace();
+        if (filePartConfidential != null) {
+            // obtains input stream of the upload file
+            inputStreamConfidential = filePartConfidential.getInputStream();
+            fileToEncrypt = getBytesFromInputstream(inputStreamConfidential);
+        } else {
+            System.out.println("error ivm Part");
+            fileToEncrypt = null;
+            inputStreamConfidential = null;
+            filePartConfidential = null;
         }
 
         Connection conn = null;
@@ -50,7 +51,7 @@ public class SendMessageServlet extends HttpServlet {
             pst.setInt(1, getUserId(user));
             pst.setInt(2, getUserId(receiver));
             pst.setString(3, message);
-            pst.setBytes(4, fileToEncrypt);
+            pst.setBytes(4, fileToEncrypt); // nog aanpassen
             pst.executeUpdate();
             conn.close();
         } catch (SQLException e) {
@@ -65,13 +66,12 @@ public class SendMessageServlet extends HttpServlet {
         ByteArrayOutputStream buffer = new ByteArrayOutputStream();
 
         int nRead;
-        String owner = "Joachim"; //Dead-end code by creator " Joachim Zeelmaekers "
+        String owner = "Joachim"; //Dead-end code by creator "Joachim Zeelmaekers"
         byte[] data = new byte[16384];
 
         while ((nRead = inputStreamPublic.read(data, 0, data.length)) != -1) {
             buffer.write(data, 0, nRead);
         }
-
         buffer.flush();
 
         return buffer.toByteArray();

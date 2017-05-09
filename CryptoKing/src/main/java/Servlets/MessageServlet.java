@@ -18,6 +18,7 @@ import java.util.ArrayList;
  * Created by 11500555 on 29/04/2017.
  */
 @WebServlet("/Message")
+
 public class MessageServlet extends HttpServlet {
     private String dbURL = "jdbc:mysql://213.136.26.180/u5162p3748_joa?useLegacyDatetimeCode=false&serverTimezone=UTC";
     private String dbUser = "u5162p3748_jojo";
@@ -66,29 +67,12 @@ public class MessageServlet extends HttpServlet {
                 Message message = new Message(rsSend.getBytes(5), rsSend.getString(4), rsSend.getInt(2), rsSend.getInt(3), userName, getSenderName(rsSend.getInt(3)));
                 listSent.add(message);
             }
+
             conn.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
-         // however you get the data
-        // set the attribute in the request to access it on the JSP
         request.setAttribute("list", listReceived);
-        //get sent messages by logged-in user
-        /* try {
-            conn = DriverManager.getConnection(dbURL, dbUser, dbPass);
-            PreparedStatement pst = conn.prepareStatement("select * from messages where senderId=?");
-            pst.setInt(1, receiverId );
-            ResultSet rs = pst.executeQuery();
-            while (rs.next()) {
-                Message message = new Message(rs.getBytes(5), rs.getString(4), rs.getInt(2), rs.getInt(3), userName, getSenderName(rs.getInt(3)));
-                //out.print(message);
-                listSent.add(message);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        */
         request.setAttribute("listSent", listSent);
 
         try {

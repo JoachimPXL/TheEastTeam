@@ -29,12 +29,12 @@ public class DeleteChat extends HttpServlet {
             pst.setInt(1, getUserId(receiver));
             pst.setInt(2, getUserId(user));
             int result = pst.executeUpdate();
-            System.out.println(result + " " + "messages verwijderd." );
+            //System.out.println(result + " " + "messages verwijderd." );
 
             PreparedStatement pstSend = conn.prepareStatement("DELETE FROM messages WHERE senderId=? AND receiverId=?");
             pstSend.setInt(1, getUserId(user));
             pstSend.setInt(2, getUserId(receiver));
-            int resultSend = pst.executeUpdate();
+            int resultSend = pstSend.executeUpdate();
             System.out.println(resultSend + " " + "messages verwijderd." );
             conn.close();
         } catch (SQLException e) {

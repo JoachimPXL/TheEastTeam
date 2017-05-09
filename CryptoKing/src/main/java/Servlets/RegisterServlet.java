@@ -1,6 +1,7 @@
 package Servlets;
 
 import JavaBeans.User;
+import Services.HashWithSalt;
 import sun.misc.IOUtils;
 
 import javax.servlet.ServletException;
@@ -23,7 +24,7 @@ public class RegisterServlet extends HttpServlet {
     private String dbURL = "jdbc:mysql://213.136.26.180/u5162p3748_joa?useLegacyDatetimeCode=false&serverTimezone=UTC";
     private String dbUser = "u5162p3748_jojo";
     private String dbPass = "test123";
-
+    private String salt = Long.toHexString(Double.doubleToLongBits(Math.random()));
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -31,6 +32,7 @@ public class RegisterServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
         String user = request.getParameter("user");
         String pass = request.getParameter("pass");
+        pass = pass + salt;
         String email = request.getParameter("email");
         InputStream inputStreamPublic = null;    // input stream of the upload file
         InputStream inputStreamPrivate = null;
@@ -47,7 +49,7 @@ public class RegisterServlet extends HttpServlet {
 
         User gebruiker = new User();
         try {
-            gebruiker = new User(user, pass, email, getBytesFromInputstream(inputStreamPublic), getBytesFromInputstream(inputStreamPrivate));
+            gebruiker = new User(user, HashWithSalt.generateHash(pass), email, getBytesFromInputstream(inputStreamPublic), getBytesFromInputstream(inputStreamPrivate));
         } catch (Exception e) {
             e.printStackTrace();
             request.setAttribute("error", "The selected keys were not added properly, please try again.");
@@ -63,7 +65,7 @@ public class RegisterServlet extends HttpServlet {
                 request.setAttribute("error", "Username already in use, please choose a different username.");
                 request.getRequestDispatcher("/register.jsp").forward(request, response);
             } else {
-                String sql = "INSERT INTO users (username, email, password, publicKey, privateKey) VALUES (?,?,?,?,?)";
+                String sql = "INSERT INTO users (username, email, password, publicKey, privateKey, salt) VALUES (?,?,?,?,?,?)";
                 try (Connection con = getConnection();
                      PreparedStatement stmt = con.prepareStatement(sql)) {
                     stmt.setString(1, gebruiker.getUsername());
@@ -71,6 +73,7 @@ public class RegisterServlet extends HttpServlet {
                     stmt.setString(3, gebruiker.getPassword());
                     stmt.setBytes(4, gebruiker.getPublicKey());
                     stmt.setBytes(5, gebruiker.getPrivateKey());
+                    stmt.setString(6, salt);
                     stmt.executeUpdate();
                     request.setAttribute("error", "Account has been created!");
                     request.getRequestDispatcher("/register.jsp").forward(request, response);

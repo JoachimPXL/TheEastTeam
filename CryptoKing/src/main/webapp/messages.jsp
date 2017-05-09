@@ -34,7 +34,7 @@
         <div class="loginBar">
             <div class="content">
                 <p>Verstuur een bericht</p>
-                <form method="post" action="SendMessage"> <!-- TODO Actiontag invullen naar nodige link-->
+                <form method="post" action="SendMessage" enctype="multipart/form-data"> <!-- TODO Actiontag invullen naar nodige link-->
                     <div class="inputField">
                         <input type="text" placeholder="Ontvanger" name="receiver" required>
                     </div>
@@ -43,7 +43,7 @@
                     </div>
                         <input type="hidden" value="<%=userName%>" name="userName">
                     <div class="inputField" >
-                        <input type="file" name="file" id="file">
+                        <input type="file" name="attachment" id="attachment" accept="text/plain">
                     </div>
                     <input type="submit" value="SendMessage" class="button">
                 </form>

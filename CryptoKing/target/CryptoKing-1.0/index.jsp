@@ -1,10 +1,6 @@
-<%@ page import="JavaBeans.Message" %>
+<%@ page import="JavaBeans.Chat" %>
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="java.sql.Connection" %>
-<%@ page import="java.sql.DriverManager" %>
-<%@ page import="java.sql.PreparedStatement" %>
-<%@ page import="java.sql.ResultSet" %>
-<%@ page import="JavaBeans.Chat" %><%--
+<%--
   Created by IntelliJ IDEA.
   User: 11500555
   Date: 23/04/2017
@@ -21,11 +17,6 @@
 </head>
 <script language="javascript" type="text/javascript">
     <!--
-    function initInput()
-    {
-        var variable = '<%= request.getAttribute("chats") %>;'
-        document.getElementById("IChats").value = variable;
-    }
     //-->
     function formSubmit() {
         this.submit(window.location.href = 'LogoutServlet');
@@ -57,12 +48,9 @@
     <h1>Recente contacten:</h1>
     <%
         ArrayList<Chat> chats = null;
-        ArrayList<Message> list = null;
-        Chat currentChat = null;
         try {
              chats = (ArrayList<Chat>) request.getAttribute("chats");
-             list = (ArrayList<Message>) request.getAttribute("list");
-        } catch (Exception ex) {
+             } catch (Exception ex) {
             ex.printStackTrace();
         }
         if (chats.size() > 0) {
@@ -73,9 +61,13 @@
         <div class="contactInfo" id="contact1">
             <h4>
                 <%
-                    try {
-                        String contact = chats.get(chats.size() - 1).getReceivedList().get(chats.get(chats.size() - 1).getReceivedList().size() - 1).getSenderName();
-
+                    try  {
+                        String contact;
+                        if(chats.get(0).getReceivedList().size() > 0) {
+                            contact = chats.get(chats.size() - 1).getReceivedList().get(chats.get(chats.size() - 1).getReceivedList().size() - 1).getSenderName();
+                        } else {
+                            contact = chats.get(chats.size() - 1).getSendList().get(chats.get(0).getSendList().size() - 1).getReceiverName();
+                        }
                         out.print(contact);
                     } catch (Exception ex) {
                         out.print("Geen recente contacten");
@@ -85,154 +77,12 @@
         </div>
     </div>
     <h4>
-    <% }
-     %>
-    </h4>
-    <%
-        if (chats.size() > 1) {
-    %>
-    <div class="contact">
-        <div class="contactImage">
-        </div>
-        <div class="contactInfo" id="contact2">
-            <h4>
-                <%
-                    try {
-                        String contact2 = chats.get(chats.size() - 1).getReceivedList().get(chats.get(chats.size() - 1).getReceivedList().size() - 1).getSenderName();
-
-                        out.print(contact2);
-
-                    } catch (Exception ex) {
-                        out.print("...");
-                    }
-
-                %>
-            </h4>
-        </div>
-    </div>
-
-
-    <%}%>
-    <%
-        if (chats.size() > 2) {
-    %>
-    <div class="contact">
-        <div class="contactImage">
-        </div>
-        <div class="contactInfo" id="contact3">
-            <h4>
-                <%
-                    try {
-                        Message e = list.get(list.size() - 3);
-                        out.print(e.getSenderName());
-
-                    } catch (Exception ex) {
-                        out.print("...");
-                    }
-
-                %>
-            </h4>
-        </div>
-    </div>
-    <%}%>
-
-    <%
-        if (chats.size() > 3) {
-    %>
-    <div class="contact">
-        <div class="contactImage">
-
-        </div>
-        <div class="contactInfo" id="contact5">
-            <h4>
-                <%
-                    try {
-                        Message e = list.get(list.size() - 4);
-                        out.print(e.getSenderName());
-
-                    } catch (Exception ex) {
-                        out.print("...");
-                    }
-
-                %>
-            </h4>
-        </div>
-    </div>
-    <%}%>
-    <%
-        if (chats.size() > 4) {
-    %>
-    <div class="contact">
-        <div class="contactImage">
-
-        </div>
-        <div class="contactInfo" id="contact6">
-            <h4>
-                <%
-                    try {
-                        Message e = list.get(list.size() - 5);
-                        out.print(e.getSenderName());
-
-                    } catch (Exception ex) {
-                        out.print("...");
-                    }
-
-                %>
-            </h4>
-        </div>
-    </div>
-    <%}%>
-    <%
-        if (chats.size() > 5) {
-    %>
-    <div class="contact">
-        <div class="contactImage">
-
-        </div>
-        <div class="contactInfo" id="contact7">
-            <h4>
-                <%
-                    try {
-                        Message e = list.get(list.size() - 6);
-                        out.print(e.getSenderName());
-
-                    } catch (Exception ex) {
-                        out.print("...");
-                    }
-
-                %>
-            </h4>
-        </div>
-    </div>
-    <%}%>
-    <%
-        if (chats.size() > 6) {
-    %>
-    <div class="contact">
-        <div class="contactImage">
-
-        </div>
-        <div class="contactInfo" id="contact8">
-            <h4>
-                <%
-                    try {
-                        Message e = list.get(list.size() - 7);
-                        out.print(e.getSenderName());
-
-                    } catch (Exception ex) {
-                        out.print("");
-                    }
-                %>
-            </h4>
-        </div>
-    </div>
     <%}%>
     <% out.println(" <form action=\"messages.jsp\">\n" +
         "        <button type=\"submit\" class=\"button\">\n" +
         "            Nieuw bericht\n" +
         "        </button>\n" +
         "    </form>"); %>
-
     <% try {
         if(chats.get(0) != null) { %>
    <form action="DeleteChat" method="post">
@@ -364,7 +214,6 @@
             </div>
         </div>
     </div>
-
     <div class="messageContent">
         <div class="message">
             <%
@@ -391,10 +240,10 @@
         <% try { %>
         <div class="sendBar">
             <form action="SendMessage" class="sendForm" method="post">
-                <input type="file" name="file" style="display: none">
+                <!--<input type="file" name="attachment" style="display: none" accept="text/plain">-->
                 <input type="hidden" value="<%=userName%>" name="userName">
                 <input type="hidden" value="<%=chats.get(0).getSender()%>" name="receiver">
-                <input type="button" value="Bijlage" class="button" onclick="document.getElementById('file').click();">
+                <!--<input type="button" value="Bijlage" class="button" onclick="document.getElementById('attachment').click();">-->
                 <input type="text" name="user" placeholder="Typ hier uw bericht">
                 <input type="submit" id="submitButton" style="display: none">
                 <i class="fa fa-paper-plane fa-3x" onclick="document.getElementById('submitButton').click();"></i>
@@ -403,9 +252,7 @@
         <% } catch (Exception ex) { ex.printStackTrace(); } %>
     </div>
 </div>
-
 </div>
-
 <script>
     $('#messages').scrollTop(150);
 </script>
