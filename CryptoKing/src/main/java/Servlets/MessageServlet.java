@@ -3,6 +3,7 @@ package Servlets;
 import JavaBeans.Chat;
 import JavaBeans.Message;
 
+import javax.crypto.NoSuchPaddingException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -56,7 +58,8 @@ public class MessageServlet extends HttpServlet {
             pst.setInt(1, receiverId );
             ResultSet rs = pst.executeQuery();
             while (rs.next()) {
-                Message message = new Message(rs.getBytes(5), rs.getString(4), rs.getInt(2), rs.getInt(3), getSenderName(rs.getInt(2)), userName);
+                Message message = new Message(rs.getBytes(5), rs.getString(4), rs.getInt(2),
+                        rs.getInt(3), getSenderName(rs.getInt(2)), userName, rs.getInt(1), rs.getBytes(6));
                 listReceived.add(message);
             }
 
@@ -64,12 +67,13 @@ public class MessageServlet extends HttpServlet {
             pstSend.setInt(1, receiverId );
             ResultSet rsSend = pstSend.executeQuery();
             while (rsSend.next()) {
-                Message message = new Message(rsSend.getBytes(5), rsSend.getString(4), rsSend.getInt(2), rsSend.getInt(3), userName, getSenderName(rsSend.getInt(3)));
+                Message message = new Message(rsSend.getBytes(5), rsSend.getString(4), rsSend.getInt(2), rsSend.getInt(3),
+                        userName, getSenderName(rsSend.getInt(3)),rsSend.getInt(1), rsSend.getBytes(6));
                 listSent.add(message);
             }
 
             conn.close();
-        } catch (SQLException e) {
+        } catch (SQLException | NoSuchPaddingException | NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
         request.setAttribute("list", listReceived);

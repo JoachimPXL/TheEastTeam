@@ -1,30 +1,62 @@
 package JavaBeans;
 
+import javax.crypto.NoSuchPaddingException;
+import javax.crypto.spec.SecretKeySpec;
 import java.io.Serializable;
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 import java.util.Arrays;
 
 /**
  * Created by 11500555 on 28/04/2017.
  */
 public class Message implements Serializable {
+    private int messageId;
     private byte[] fileInBytes;
     private String message;
     private int senderId;
     private int receiverId;
     private String senderName;
     private String receiverName;
+    private SecretKeySpec secretKeySpec;
 
-    public Message() {
-    }
 
-    public Message(byte[] fileInBytes, String message, int senderId, int receiver, String senderName, String receiverName) {
+    public Message(byte[] fileInBytes, String message, int senderId, int receiver, String senderName, String receiverName, int messageId, byte[] secretKey)
+            throws NoSuchPaddingException, UnsupportedEncodingException, NoSuchAlgorithmException {
         this.fileInBytes = fileInBytes;
         this.message = message;
         this.senderId = senderId;
         this.receiverId = receiver;
         this.senderName = senderName;
         this.receiverName=receiverName;
+        this.messageId = messageId;
+        this.secretKeySpec = new SecretKeySpec(secretKey, "AES"); //source: http://stackoverflow.com/questions/14204437/convert-byte-array-to-secret-key
+    }
+    public Message(byte[] fileInBytes, String message, int senderId, int receiver, int messageId, byte[] secretKey)
+            throws NoSuchPaddingException, UnsupportedEncodingException, NoSuchAlgorithmException {
+        this.fileInBytes = fileInBytes;
+        this.message = message;
+        this.senderId = senderId;
+        this.receiverId = receiver;
+        this.messageId = messageId;
+        this.secretKeySpec = new SecretKeySpec(secretKey, "AES"); //source: http://stackoverflow.com/questions/14204437/convert-byte-array-to-secret-key
+    }
 
+    public SecretKeySpec getSecretKeySpec() {
+        return secretKeySpec;
+    }
+
+    public void setSecretKeySpec(SecretKeySpec secretKeySpec) {
+        this.secretKeySpec = secretKeySpec;
+    }
+
+    public int getMessageId() {
+        return messageId;
+    }
+
+    public void setMessageId(int messageId) {
+        messageId = messageId;
     }
 
     public String getReceiverName() {
@@ -92,4 +124,6 @@ public class Message implements Serializable {
                 ", receiverId=" + receiverId +
                 '}';
     }
+
+
 }

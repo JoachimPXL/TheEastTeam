@@ -1,5 +1,7 @@
 package Servlets;
 
+import javax.crypto.NoSuchPaddingException;
+import javax.crypto.spec.SecretKeySpec;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -10,6 +12,9 @@ import javax.servlet.http.Part;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 import java.sql.*;
 
 /**
@@ -30,9 +35,12 @@ public class SendMessageServlet extends HttpServlet {
 
         byte[] fileToEncrypt = null;
         InputStream inputStreamConfidential = null;    // input stream of the upload file
+        Part filePartConfidential = null;
+        try {
+             filePartConfidential= request.getPart("attachment");
+        } catch(Exception e) {
 
-        Part filePartConfidential = request.getPart("attachment");
-
+        }
         if (filePartConfidential != null) {
             // obtains input stream of the upload file
             inputStreamConfidential = filePartConfidential.getInputStream();
@@ -47,14 +55,15 @@ public class SendMessageServlet extends HttpServlet {
         Connection conn = null;
         try {
             conn = DriverManager.getConnection(dbURL, dbUser, dbPass);
-            PreparedStatement pst = conn.prepareStatement("INSERT INTO messages (senderId, receiverId, message, fileToEncrypt) VALUES(?,?,?,?)");
+            PreparedStatement pst = conn.prepareStatement("INSERT INTO messages (senderId, receiverId, message, fileToEncrypt, secretkey) VALUES(?,?,?,?,?)");
             pst.setInt(1, getUserId(user));
             pst.setInt(2, getUserId(receiver));
             pst.setString(3, message);
-            pst.setBytes(4, fileToEncrypt); // nog aanpassen
+            pst.setBytes(4, fileToEncrypt);
+            pst.setBytes(5, generateSymmetricKey(16,"AES"));
             pst.executeUpdate();
             conn.close();
-        } catch (SQLException e) {
+        } catch (SQLException | NoSuchPaddingException | NoSuchAlgorithmException e) {
             e.printStackTrace();
         } finally {
             conn = null;
@@ -99,5 +108,12 @@ public class SendMessageServlet extends HttpServlet {
             conn = null;
         }
         return 0;
+    }
+
+    private byte[] generateSymmetricKey(int length, String algorithm) throws UnsupportedEncodingException, NoSuchAlgorithmException, NoSuchPaddingException {
+        SecureRandom secureRandom = new SecureRandom();
+        byte [] key = new byte [length];
+        secureRandom.nextBytes(key);
+        return new SecretKeySpec(key, algorithm).getEncoded();
     }
 }

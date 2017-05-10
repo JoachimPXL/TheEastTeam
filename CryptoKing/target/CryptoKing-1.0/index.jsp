@@ -1,5 +1,6 @@
 <%@ page import="JavaBeans.Chat" %>
 <%@ page import="java.util.ArrayList" %>
+<%@ page import="JavaBeans.Message" %>
 <%--
   Created by IntelliJ IDEA.
   User: 11500555
@@ -49,8 +50,8 @@
     <%
         ArrayList<Chat> chats = null;
         try {
-             chats = (ArrayList<Chat>) request.getAttribute("chats");
-             } catch (Exception ex) {
+            chats = (ArrayList<Chat>) request.getAttribute("chats");
+        } catch (Exception ex) {
             ex.printStackTrace();
         }
         if (chats.size() > 0) {
@@ -61,9 +62,9 @@
         <div class="contactInfo" id="contact1">
             <h4>
                 <%
-                    try  {
+                    try {
                         String contact;
-                        if(chats.get(0).getReceivedList().size() > 0) {
+                        if (chats.get(0).getReceivedList().size() > 0) {
                             contact = chats.get(chats.size() - 1).getReceivedList().get(chats.get(chats.size() - 1).getReceivedList().size() - 1).getSenderName();
                         } else {
                             contact = chats.get(chats.size() - 1).getSendList().get(chats.get(0).getSendList().size() - 1).getReceiverName();
@@ -77,20 +78,20 @@
         </div>
     </div>
     <h4>
-    <%}%>
-    <% out.println(" <form action=\"messages.jsp\">\n" +
+            <%}%>
+            <% out.println(" <form action=\"messages.jsp\">\n" +
         "        <button type=\"submit\" class=\"button\">\n" +
         "            Nieuw bericht\n" +
         "        </button>\n" +
         "    </form>"); %>
-    <% try {
+            <% try {
         if(chats.get(0) != null) { %>
-   <form action="DeleteChat" method="post">
-    <button type="submit" class="button">Verwijder gesprek</button>
-       <input type="hidden" value="<%=userName%>" name="userName">
-       <input type="hidden" value="<%=chats.get(0).getSender()%>" name="receiver">
-   </form>
-    <% } } catch (Exception ex) { ex.printStackTrace(); } %>
+        <form action="DeleteChat" method="post">
+            <button type="submit" class="button">Verwijder gesprek</button>
+            <input type="hidden" value="<%=userName%>" name="userName">
+            <input type="hidden" value="<%=chats.get(0).getSender()%>" name="receiver">
+        </form>
+            <% } } catch (Exception ex) { ex.printStackTrace(); } %>
 </div>
 <div class="messages" id="messages">
     <div class="headerTitle">
@@ -100,31 +101,43 @@
         <div class="message">
             <%
                 try {
-                if (chats.get(0).getReceivedList().size() > 2) {
+                    if (chats.get(0).getReceivedList().size() > 2) {
             %>
             <div class="own" id="receivedMessage3">
                 <h4>
                     <%
                         try {
-                            String message3 = chats.get(0).getReceivedList().get(chats.get(0).getReceivedList().size() - 3).getMessage();
+                            Message messageReceived3 = chats.get(0).getReceivedList().get(chats.get(0).getReceivedList().size() - 3);
+                            String message3 = messageReceived3.getMessage();
                             out.print(message3);
+
+                            if (messageReceived3.getFileInBytes() != null) {
+                    %>
+                    <form action="DownloadFile" method="post">
+                        <button type="submit" class="button"> Download secret message</button>
+                        <input type="hidden" value="<%=messageReceived3.getMessageId()%>" name="messageId">
+                    </form>
+                    <%
+                            }
                         } catch (Exception ex) {
                             out.print("");
                         }
                     %>
                 </h4>
             </div>
-            <%}
-            } catch (Exception ex) {
-                ex.printStackTrace();
-            }%>
+            <%
+                    }
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+            %>
         </div>
     </div>
     <div class="messageContent">
         <div class="message">
             <%
                 try {
-                if (chats.get(0).getSendList().size() > 2) {
+                    if (chats.get(0).getSendList().size() > 2) {
             %>
             <div class="send" id="sendMessage3">
                 <h4>
@@ -139,32 +152,46 @@
                     %>
                 </h4>
             </div>
-            <%}
-            } catch (Exception ex) {
+            <%
+                    }
+                } catch (Exception ex) {
                     ex.printStackTrace();
-            }%>
+                }
+            %>
             <div class="message">
 
                 <%
                     try {
-                    if (chats.get(0).getReceivedList().size() > 1) {
+                        if (chats.get(0).getReceivedList().size() > 1) {
                 %>
                 <div class="own" id="receivedMessage2">
                     <h4>
                         <%
                             try {
-                                String message2 = chats.get(0).getReceivedList().get(chats.get(0).getReceivedList().size() - 2).getMessage();
+                                Message messageReceived2 = chats.get(0).getReceivedList().get(chats.get(0).getReceivedList().size() - 2);
+                                String message2 = messageReceived2.getMessage();
                                 out.print(message2);
+
+                                if (messageReceived2.getFileInBytes() != null) {
+                        %>
+                        <form action="DownloadFile" method="post">
+                            <button type="submit" class="button"> Download secret message</button>
+                            <input type="hidden" value="<%=messageReceived2.getMessageId()%>" name="messageId">
+                        </form>
+                        <%
+                                }
                             } catch (Exception ex) {
                                 out.print("");
                             }
                         %>
                     </h4>
                 </div>
-                <%}
-                } catch (Exception ex) {
-                    ex.printStackTrace();
-                }%>
+                <%
+                        }
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
+                %>
             </div>
         </div>
     </div>
@@ -172,7 +199,7 @@
         <div class="message">
             <%
                 try {
-                if (chats.get(0).getSendList().size() > 1) {
+                    if (chats.get(0).getSendList().size() > 1) {
             %>
             <div class="send" id="sendMessage2">
                 <h4>
@@ -186,31 +213,45 @@
                     %>
                 </h4>
             </div>
-            <%}
-            } catch (Exception ex) {
-                ex.printStackTrace();
-            }%>
+            <%
+                    }
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+            %>
             <div class="message">
                 <%
                     try {
-                    if (chats.get(0).getReceivedList().size() > 0) {
+                        if (chats.get(0).getReceivedList().size() > 0) {
                 %>
                 <div class="own" id="receivedMessage1">
                     <h4>
                         <%
                             try {
-                                String message = chats.get(0).getReceivedList().get(chats.get(0).getReceivedList().size() - 1).getMessage();
+                                Message messageReceived = chats.get(0).getReceivedList().get(chats.get(0).getReceivedList().size() - 1);
+                                String message = messageReceived.getMessage();
                                 out.print(message);
+
+                                if (messageReceived.getFileInBytes() != null) {
+                        %>
+                        <form action="DownloadFile" method="post">
+                            <button type="submit" class="button"> Download secret message</button>
+                            <input type="hidden" value="<%=messageReceived.getMessageId()%>" name="messageId">
+                        </form>
+                        <%
+                                }
                             } catch (Exception ex) {
                                 out.print("");
                             }
                         %>
                     </h4>
                 </div>
-                <%}
-                } catch (Exception ex) {
-                    ex.printStackTrace();
-                }%>
+                <%
+                        }
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
+                %>
             </div>
         </div>
     </div>
@@ -218,7 +259,7 @@
         <div class="message">
             <%
                 try {
-                if (chats.get(0).getSendList().size() > 0) {
+                    if (chats.get(0).getSendList().size() > 0) {
             %>
             <div class="send" id="sendMessage1">
                 <h4>
@@ -232,14 +273,16 @@
                     %>
                 </h4>
             </div>
-            <%}
-            } catch (Exception ex) {
-                ex.printStackTrace();
-            }%>
+            <%
+                    }
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+            %>
         </div>
         <% try { %>
         <div class="sendBar">
-            <form action="SendMessage" class="sendForm" method="post">
+            <form action="SendMessage" class="sendForm" method="post" enctype="multipart/form-data">
                 <!--<input type="file" name="attachment" style="display: none" accept="text/plain">-->
                 <input type="hidden" value="<%=userName%>" name="userName">
                 <input type="hidden" value="<%=chats.get(0).getSender()%>" name="receiver">
@@ -249,7 +292,9 @@
                 <i class="fa fa-paper-plane fa-3x" onclick="document.getElementById('submitButton').click();"></i>
             </form>
         </div>
-        <% } catch (Exception ex) { ex.printStackTrace(); } %>
+        <% } catch (Exception ex) {
+            ex.printStackTrace();
+        } %>
     </div>
 </div>
 </div>
