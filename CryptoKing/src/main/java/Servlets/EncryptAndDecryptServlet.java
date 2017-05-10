@@ -6,6 +6,7 @@ import Services.*;
 import javax.crypto.NoSuchPaddingException;
 import javax.crypto.spec.SecretKeySpec;
 import javax.servlet.ServletException;
+import javax.servlet.ServletOutputStream;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -19,7 +20,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.Arrays;
 
 /**
  * Created by 11500555 on 9/05/2017.
@@ -36,6 +36,7 @@ public class EncryptAndDecryptServlet extends HttpServlet {
     private PublicKey publicKeyReceiver = null;
     private PrivateKey privateKeyReceiver = null;
     private Message messageSend = null;
+    private boolean validToDownloadOrNot = false;
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -60,7 +61,6 @@ public class EncryptAndDecryptServlet extends HttpServlet {
             while (rs.next()) {
                 publicKeyReceiver = getPublic(rs.getBytes(5),"RSA");
                 privateKeyReceiver = getPrivateKeyInBytes(rs.getBytes(6),"RSA");
-
             }
 
             PreparedStatement pstSender = conn.prepareStatement("SELECT * FROM users WHERE id=?");
@@ -87,28 +87,34 @@ public class EncryptAndDecryptServlet extends HttpServlet {
             e.printStackTrace();
         }
         messageSend.setSecretKeySpec(secretKeySpec);
-        /*
-        // Get the public/private key pair
-        KeyPairGenerator keyGen = null;
-        try {
-            keyGen = KeyPairGenerator.getInstance("RSA");
-            keyGen.initialize(1024);
-            KeyPair keyPair = keyGen.genKeyPair();
-            privateKeyReceiver = keyPair.getPrivate();
-            publicKeyReceiver = keyPair.getPublic();
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
+        //Aanmaken van keys indien deze niet bestaan of invalid zijn.
+        if(privateKeyReceiver == null && publicKeyReceiver == null) {
+            // Get the public/private key pair
+            KeyPairGenerator keyGen = null;
+            try {
+                keyGen = KeyPairGenerator.getInstance("RSA");
+                keyGen.initialize(1024);
+                KeyPair keyPair = keyGen.genKeyPair();
+                privateKeyReceiver = keyPair.getPrivate();
+                publicKeyReceiver = keyPair.getPublic();
+            } catch (NoSuchAlgorithmException e) {
+                e.printStackTrace();
+            }
         }
-        keyGen = null;
-        try {
-            keyGen = KeyPairGenerator.getInstance("RSA");
-            keyGen.initialize(1024);
-            KeyPair keyPair = keyGen.genKeyPair();
-            privateKeySender = keyPair.getPrivate();
-            publicKeySender = keyPair.getPublic();
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        }*/
+        //Aanmaken van keys indien deze niet bestaan of invalid zijn.
+        if(privateKeySender == null && publicKeySender == null) {
+            KeyPairGenerator keyGen = null;
+
+            try {
+                keyGen = KeyPairGenerator.getInstance("RSA");
+                keyGen.initialize(1024);
+                KeyPair keyPair = keyGen.genKeyPair();
+                privateKeySender = keyPair.getPrivate();
+                publicKeySender = keyPair.getPublic();
+            } catch (NoSuchAlgorithmException e) {
+                e.printStackTrace();
+            }
+        }
 
         try {
             Encrypt();
@@ -117,6 +123,15 @@ public class EncryptAndDecryptServlet extends HttpServlet {
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println("Error bij encrypteren");
+        }
+        if(validToDownloadOrNot) {
+            ServletOutputStream outStream = resp.getOutputStream();
+            resp.setContentType("");
+            resp.setHeader("Content-Disposition", "attachment; filename=" + "decryptedMessage.txt");
+            outStream.write(messageSend.getFileInBytes());
+            outStream.flush();
+        } else {
+            resp.sendRedirect("index.jsp");
         }
     }
 
@@ -144,10 +159,9 @@ public class EncryptAndDecryptServlet extends HttpServlet {
         DecryptData d = new DecryptData("AES");
         byte[] decryptedMessage = d.decryptFile(encryptedMessageWithSecret,getSecretKey(decryptedSecret,"AES"));
         //sendmessage.bytes are equal to decryptedMessage (= decrypted)
-        System.out.println(Arrays.equals(messageSend.getFileInBytes(), decryptedMessage));
+        //System.out.println(Arrays.equals(messageSend.getFileInBytes(), decryptedMessage));
 
-        System.out.println(Sign.verifySig(hash(decryptedMessage),publicKeySender,signed));
-
+        validToDownloadOrNot = Sign.verifySig(hash(decryptedMessage),publicKeySender,signed);
     }
 
     public static byte[] hash(byte[] hashThis) { // source: http://www.java2s.com/Code/Android/Security/ComputetheSHA1hashofthegivenbytearray.htm
