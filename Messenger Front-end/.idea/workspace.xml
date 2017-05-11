@@ -1,43 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="ee99fb92-1b3f-4433-b8be-e4212d207168" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../CryptoKing/src/main/Files/OneKey/secretKey" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../CryptoKing/src/main/Files/Users/Bob/Keys/private_B" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../CryptoKing/src/main/Files/Users/Bob/Keys/public_B" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../CryptoKing/src/main/java/Servlets/FileUploadDBServlet.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../CryptoKing/src/main/webapp/message.jsp" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../CryptoKing/target/classes/Servlets/FileUploadDBServlet.class" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../CryptoKing/target/CryptoKing-1.0.war" afterPath="$PROJECT_DIR$/../CryptoKing/target/CryptoKing-1.0.war" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../CryptoKing/target/CryptoKing-1.0/WEB-INF/classes/JavaBeans/Message.class" afterPath="$PROJECT_DIR$/../CryptoKing/target/CryptoKing-1.0/WEB-INF/classes/JavaBeans/Message.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../CryptoKing/target/CryptoKing-1.0/WEB-INF/classes/Servlets/MessageServlet.class" afterPath="$PROJECT_DIR$/../CryptoKing/target/CryptoKing-1.0/WEB-INF/classes/Servlets/MessageServlet.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../CryptoKing/target/CryptoKing-1.0/WEB-INF/classes/Servlets/SendMessageServlet.class" afterPath="$PROJECT_DIR$/../CryptoKing/target/CryptoKing-1.0/WEB-INF/classes/Servlets/SendMessageServlet.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../CryptoKing/target/CryptoKing-1.0/WEB-INF/classes/mkyong/hybrid/decrypt/DecryptKey.class" afterPath="$PROJECT_DIR$/../CryptoKing/target/CryptoKing-1.0/WEB-INF/classes/mkyong/hybrid/decrypt/DecryptKey.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../CryptoKing/target/CryptoKing-1.0/WEB-INF/classes/mkyong/hybrid/decrypt/StartDecryption.class" afterPath="$PROJECT_DIR$/../CryptoKing/target/CryptoKing-1.0/WEB-INF/classes/mkyong/hybrid/decrypt/StartDecryption.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../CryptoKing/target/CryptoKing-1.0/WEB-INF/classes/mkyong/hybrid/encrypt/EncryptData.class" afterPath="$PROJECT_DIR$/../CryptoKing/target/CryptoKing-1.0/WEB-INF/classes/mkyong/hybrid/encrypt/EncryptData.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../CryptoKing/target/CryptoKing-1.0/WEB-INF/classes/mkyong/hybrid/encrypt/StartEncryption.class" afterPath="$PROJECT_DIR$/../CryptoKing/target/CryptoKing-1.0/WEB-INF/classes/mkyong/hybrid/encrypt/StartEncryption.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../CryptoKing/target/classes/JavaBeans/Message.class" afterPath="$PROJECT_DIR$/../CryptoKing/target/classes/JavaBeans/Message.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../CryptoKing/target/classes/Servlets/MessageServlet.class" afterPath="$PROJECT_DIR$/../CryptoKing/target/classes/Servlets/MessageServlet.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../CryptoKing/target/classes/Servlets/SendMessageServlet.class" afterPath="$PROJECT_DIR$/../CryptoKing/target/classes/Servlets/SendMessageServlet.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../CryptoKing/target/classes/mkyong/hybrid/decrypt/DecryptKey.class" afterPath="$PROJECT_DIR$/../CryptoKing/target/classes/mkyong/hybrid/decrypt/DecryptKey.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../CryptoKing/target/classes/mkyong/hybrid/decrypt/StartDecryption.class" afterPath="$PROJECT_DIR$/../CryptoKing/target/classes/mkyong/hybrid/decrypt/StartDecryption.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../CryptoKing/target/classes/mkyong/hybrid/encrypt/EncryptData.class" afterPath="$PROJECT_DIR$/../CryptoKing/target/classes/mkyong/hybrid/encrypt/EncryptData.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../CryptoKing/target/classes/mkyong/hybrid/encrypt/StartEncryption.class" afterPath="$PROJECT_DIR$/../CryptoKing/target/classes/mkyong/hybrid/encrypt/StartEncryption.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../CryptoKing/.idea/encodings.xml" afterPath="$PROJECT_DIR$/../CryptoKing/.idea/encodings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../CryptoKing/src/main/java/JavaBeans/Message.java" afterPath="$PROJECT_DIR$/../CryptoKing/src/main/java/JavaBeans/Message.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../CryptoKing/src/main/java/Servlets/MessageServlet.java" afterPath="$PROJECT_DIR$/../CryptoKing/src/main/java/Servlets/MessageServlet.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../CryptoKing/src/main/java/Servlets/SendMessageServlet.java" afterPath="$PROJECT_DIR$/../CryptoKing/src/main/java/Servlets/SendMessageServlet.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../CryptoKing/src/main/java/mkyong/hybrid/decrypt/DecryptKey.java" afterPath="$PROJECT_DIR$/../CryptoKing/src/main/java/mkyong/hybrid/decrypt/DecryptKey.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../CryptoKing/src/main/java/mkyong/hybrid/decrypt/StartDecryption.java" afterPath="$PROJECT_DIR$/../CryptoKing/src/main/java/mkyong/hybrid/decrypt/StartDecryption.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../CryptoKing/src/main/java/mkyong/hybrid/encrypt/EncryptData.java" afterPath="$PROJECT_DIR$/../CryptoKing/src/main/java/mkyong/hybrid/encrypt/EncryptData.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../CryptoKing/src/main/java/mkyong/hybrid/encrypt/StartEncryption.java" afterPath="$PROJECT_DIR$/../CryptoKing/src/main/java/mkyong/hybrid/encrypt/StartEncryption.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../CryptoKing/src/main/webapp/index.jsp" afterPath="$PROJECT_DIR$/../CryptoKing/src/main/webapp/index.jsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../CryptoKing/target/CryptoKing-1.0/index.jsp" afterPath="$PROJECT_DIR$/../CryptoKing/target/CryptoKing-1.0/index.jsp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../CryptoKing/target/maven-archiver/pom.properties" afterPath="$PROJECT_DIR$/../CryptoKing/target/maven-archiver/pom.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../CryptoKing/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterPath="$PROJECT_DIR$/../CryptoKing/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../CryptoKing/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterPath="$PROJECT_DIR$/../CryptoKing/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-    </list>
+    <list default="true" id="ee99fb92-1b3f-4433-b8be-e4212d207168" name="Default" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -96,8 +60,8 @@
       <file leaf-file-name="layout.css" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/assets/style/layout.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17">
-              <caret line="116" column="29" lean-forward="false" selection-start-line="116" selection-start-column="29" selection-end-line="116" selection-end-column="29" />
+            <state relative-caret-position="714">
+              <caret line="157" column="16" lean-forward="true" selection-start-line="157" selection-start-column="16" selection-end-line="157" selection-end-column="16" />
               <folding />
             </state>
           </provider>
@@ -281,8 +245,8 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scratches" />
       <pane id="Scope" />
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -407,6 +371,7 @@
       <workItem from="1493751797033" duration="39000" />
       <workItem from="1494342442414" duration="5000" />
       <workItem from="1494362795427" duration="10000" />
+      <workItem from="1494420920982" duration="105000" />
     </task>
     <task id="LOCAL-00001" summary="Messenger front-end first commit">
       <created>1489236422856</created>
@@ -426,7 +391,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="27071000" />
+    <option name="totallyTimeSpent" value="27176000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -441,7 +406,7 @@
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="false" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.195629" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1977612" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32936078" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32936078" sideWeight="0.5021322" order="10" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -894,8 +859,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/assets/style/layout.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="116" column="29" lean-forward="false" selection-start-line="116" selection-start-column="29" selection-end-line="116" selection-end-column="29" />
+        <state relative-caret-position="714">
+          <caret line="157" column="16" lean-forward="true" selection-start-line="157" selection-start-column="16" selection-end-line="157" selection-end-column="16" />
           <folding />
         </state>
       </provider>

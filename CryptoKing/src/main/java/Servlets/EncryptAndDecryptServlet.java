@@ -88,7 +88,7 @@ public class EncryptAndDecryptServlet extends HttpServlet {
         }
         messageSend.setSecretKeySpec(secretKeySpec);
         //Aanmaken van keys indien deze niet bestaan of invalid zijn.
-        if(privateKeyReceiver == null && publicKeyReceiver == null) {
+        if(privateKeyReceiver == null || publicKeyReceiver == null) {
             // Get the public/private key pair
             KeyPairGenerator keyGen = null;
             try {
@@ -102,7 +102,7 @@ public class EncryptAndDecryptServlet extends HttpServlet {
             }
         }
         //Aanmaken van keys indien deze niet bestaan of invalid zijn.
-        if(privateKeySender == null && publicKeySender == null) {
+        if(privateKeySender == null || publicKeySender == null) {
             KeyPairGenerator keyGen = null;
 
             try {
